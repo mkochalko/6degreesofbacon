@@ -1,21 +1,39 @@
-# Simple Node API Backend
+# 6 Degrees of Bacon
 
-Simple Node Backend for avoiding CORS issues in development
-- npm install
-- npm run build
-- npm start
+## Background
 
-Technologies
-- express
-- axios
-- webpack
+It’s Kevin Bacon is a data visualization app based off of the features created at Oracle of Bacon. This app will allow you to search for any actor/actress and find their connection to Kevin Bacon(Bacon Number). 
 
-Implementation
+## Functionality and MVP
 
-This project allows you to serve your HTML and JS from a custom backend that performs API requests to an external API.
+* Get search functionality 
+* Display Data
+* Proper data visualization 
+* Implement movie data
+* Incorporate clean user interaction with movie data
 
-app.js contains the routes that you need to get your data. Customize them according to the paths you wish to use in your code, and the API you wish to access
+## Wireframes
 
-Write your JS in the javascripts folder; your entry file is index.js.
+![Wireframe](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/6DegWireframe.png)
 
-In the entry file 
+## Architecture and Technoloties
+
+This project will implement the following technologies:
+* JavaScript for clean interaction and website transitions
+* Oracle of Bacon API for connection requests and information
+* D3 for data visualization
+* IMDB API for any and all movie/actor information
+
+
+## Implementation Timeline
+
+Day 1: Setup project
+
+Day 2: Get Oracle of Bacon api calls returning the correct data
+
+Day 3: Setup D3 Node map to display default map and display search result animation
+
+Day 4: Get the correct IMDB response information
+
+Day 5: Setup interactive movie data from search results
+
