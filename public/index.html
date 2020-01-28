@@ -2,10 +2,181 @@
 <html>
   <head>
     <meta charset="utf-8">
+    <style>
+      .links line {
+        stroke: #999;
+        stroke-opacity: 0.6;
+      }
+
+      .nodes circle {
+        stroke: black	;
+        stroke-width: 0px;
+      }
+    </style>
     <title></title>
     <script type="text/javascript" src="./bundle.js"></script>
   </head>
   <body>
+    <h1>It's Kevin Bacon</h1>
     <main id='main'></main>
+      <svg width="960" height="600"></svg>
+      <script src="https://d3js.org/d3.v5.min.js"></script>
+      <script>
+        let svg = d3.select("svg"),
+            width = +svg.attr("width"),
+            height = +svg.attr("height")
+
+
+          let nodes = [
+            { "number": 1 },
+            { "number": 2 },
+            { "number": 3 },
+            { "number": 4 },
+            { "number": 5 },
+            { "number": 6 },
+            { "number": 7 },
+            { "number": 8 },
+            { "number": 9 },
+            { "number": 10 },
+            { "number": 11 },
+            { "number": 12 },
+            { "number": 13 },
+            { "number": 14 },
+            { "number": 15 },
+            { "number": 16 },
+            // { "number": 17 },
+            // { "number": 18 },
+            // { "number": 19 },
+            // { "number": 20 },
+            // { "number": 21 },
+            // { "number": 22 },
+            // { "number": 23 },
+            // { "number": 24 },
+            // { "number": 25 },
+            // { "number": 26 },
+            // { "number": 27 },
+            // { "number": 28 },
+            // { "number": 29 },
+            // { "number": 30 },
+            // { "number": 31 },
+            // { "number": 32 },
+            // { "number": 33 },
+            // { "number": 34 },
+            // { "number": 35 },
+            // { "number": 36 },
+            // { "number": 37 },
+            // { "number": 38 },
+            // { "number": 39 },
+            // { "number": 40 },
+            // { "number": 41 },
+            // { "number": 42 },
+            // { "number": 43 },
+            // { "number": 44 },
+            // { "number": 45 },
+            // { "number": 46 },
+            // { "number": 47 },
+            // { "number": 48 }
+          ]
+
+          let links = [
+            { "source": 0, "target": 1, "distance": 100 },
+            { "source": 0, "target": 2, "distance": 100 },
+            { "source": 0, "target": 3, "distance": 100 },
+            { "source": 0, "target": 4, "distance": 100 },
+            { "source": 0, "target": 5, "distance": 100 },
+            { "source": 0, "target": 6, "distance": 100 },
+            { "source": 0, "target": 7, "distance": 100 },
+            { "source": 0, "target": 8, "distance": 100 },
+            { "source": 0, "target": 9, "distance": 100 },
+            { "source": 0, "target": 10, "distance": 100 },
+            { "source": 0, "target": 11, "distance": 100 },
+            { "source": 0, "target": 12, "distance": 100 },
+            { "source": 1, "target": 15, "distance": 100 },
+            // { "source": 12, "target": 14, "distance": 100 },
+            // { "source": 2, "target": 15, "distance": 100 },
+            // { "source": 14, "target": 16, "distance": 100 },
+            // { "source": 5, "target": 17, "distance": 100 },
+            // { "source": 6, "target": 18, "distance": 100 },
+            // { "source": 7, "target": 19, "distance": 100 },
+            // { "source": 8, "target": 20, "distance": 100 },
+            // { "source": 9, "target": 21, "distance": 100 },
+            // { "source": 10, "target": 22, "distance": 100 },
+            // { "source": 11, "target": 23, "distance": 100 },
+            // { "source": 12, "target": 24, "distance": 100 },
+            // { "source": 13, "target": 25, "distance": 100 },
+            // { "source": 14, "target": 26, "distance": 100 },
+            // { "source": 15, "target": 27, "distance": 100 },
+            // { "source": 16, "target": 28, "distance": 100 },
+            // { "source": 17, "target": 29, "distance": 100 },
+            // { "source": 18, "target": 30, "distance": 100 },
+          ]
+
+          const simulation = d3.forceSimulation()
+            .nodes(nodes);
+
+            function dist(d) {
+              return d.distance
+            }
+
+
+          var link_force = d3.forceLink(links).distance(dist)
+
+            simulation
+              .force("charge_force", d3.forceManyBody())
+              .force("center_force", d3.forceCenter(width / 2, height / 2))
+              .force("links", link_force);
+
+
+            //add tick instructions: 
+            simulation.on("tick", tickActions);
+
+            //draw circles for the links 
+            var node = svg.append("g")
+              .attr("class", "nodes")
+              .selectAll("circle")
+              .data(nodes)
+              .enter()
+              .append("circle")
+              .attr("r", 12)
+              .attr("fill", circleColor);
+
+
+            //draw lines for the links 
+            var link = svg.append("g")
+                .attr("class", "links")
+              .selectAll("line")
+              .data(links)
+              .enter().append("line")
+                .attr("stroke-width", 3)
+                .style("stroke", linkColor)
+
+            function circleColor(d) {
+                  return "blue";
+              }
+
+              //Function to choose the line color and thickness 
+              //If the link type is "A" return green 
+              //If the link type is "E" return red 
+              function linkColor(d) {
+                  return "green";
+              }
+
+              function tickActions() {
+                  //update circle positions each tick of the simulation 
+                  node
+                    .attr("cx", function (d) { return d.x; })
+                    .attr("cy", function (d) { return d.y; });
+
+                  //update link positions 
+                  //simply tells one end of the line to follow one node around
+                  //and the other end of the line to follow the other node around
+                  link
+                    .attr("x1", function (d) { return d.source.x; })
+                    .attr("y1", function (d) { return d.source.y; })
+                    .attr("x2", function (d) { return d.target.x; })
+                    .attr("y2", function (d) { return d.target.y; });
+                } 
+
+      </script>
   </body>
 </html>
