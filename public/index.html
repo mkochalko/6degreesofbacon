@@ -135,15 +135,21 @@
               .force("center_force", d3.forceCenter(width / 2, height / 2))
               .force("links", link_force);
 
+          let button;
+          document.addEventListener("DOMContentLoaded", () => {
+            button = document.getElementById("oracle-search")
+            button.addEventListener("click", updateNode)
 
+          })
             //add tick instructions: 
             simulation.on("tick", tickActions);
-
-            // let button = d3.select("button#oracle-search");
+            // console.log(d3)
+            // console.log(document.getElementById("oracle-search"))
+            // let button = d3.select(document.getElementById("oracle-search"));
             // console.log(button)
             // let submitButton = Array.from(button)
             // console.log(submitButton)
-            // button[0].on("click", updateNode)
+            // button.on("click", updateNode)
 
             // draw lines for the links 
             var link = svg.append("g")
@@ -175,6 +181,7 @@
               node.append("text")
                 .attr("dx", -12)
                 .attr("dy", ".35em")
+                .attr("value", "")
                 .text(function (d) { return d.value })
 
               
@@ -234,8 +241,8 @@
                 // console.log(root.selectAll("g.child"))
                 
 
-                node.filter(function (d, i) { return i === 0 }).select("text")
-                  .text("Kevin Bacon")
+                // node.filter(function (d, i) { return i === 0 }).select("text")
+                //   .text("Kevin Bacon")
 
                 // d3.select(this)
                 //   .attr("r", 26)
@@ -244,53 +251,198 @@
 
 
 
-                d3.selectAll("circle").style("fill", "blue");//reset all node colors
-                d3.selectAll("path").style("stroke", "#c3c3c3");//reset the color for all links
+                d3.selectAll("circle").style("fill", "blue")
+                  .attr("r", 12);//reset all node colors
+                d3.selectAll("line").style("stroke", "green");//reset the color for all links
+                d3.selectAll("text").text(" ") //reset the text for all nodes
 
 
                 let test = "Kevin Bacon"
                 let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
                 let reversedOracleArray = oracleArray.reverse();
-                let randomIndex = Math.floor(Math.random() * 12) + 1
-                console.log(randomIndex)
+                let randomIndex = Math.ceil(Math.random() * 11) + 1
+                // console.log(randomIndex)
                 let randomNode = node.filter(function (d) { return d.number === randomIndex })
                 // console.log(randomNode)
                 // console.log("randomNode above")
-
+                
                 let count = 1
+                let actorIndex = 0
                 // console.log(d)
                 while (d) {
-                  console.log(d)
-                  console.log(reversedOracleArray[count - 1])
+                  // console.log(d)
                   // console.log(this)
+                  // console.log(reversedOracleArray[count - 1])
+                  // console.log(count - 1)
+
                   let thisD = d
+                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
+                  // console.log(currentNode)
+                  let overlayText = (reversedOracleArray) => {
+                    currentNode.select("text")
+                      .attr("value", reversedOracleArray[actorIndex])
+                      .text(reversedOracleArray[actorIndex])
+
+                    actorIndex++
+                    // console.log(currentNode.select("text"))
+                  }
                   // debugger;
                   // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
-                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
-                  setTimeout(() => {currentNode.select("circle").style("fill", "red")
+                  let updateCircle = (reversedOracleArray) => {currentNode.select("circle").style("fill", "red")
                     .transition()
                     .duration(1000)
-                    .attr("r", 30)}, (750 * count))
+                    .attr("r", 30)
+
+                    overlayText(reversedOracleArray)
+                  }
+
+                  let circleTime = count * 750
+                  let textTime = 200
+
+                  let promiseTimeout = (circleTime) => new Promise((udpateCircle, reject) => {
+                    setTimeout(() => {
+                      updateCircle(reversedOracleArray)
+                    }, circleTime)
+                  });
+                    //, (750 * count))
 
                   
-                  
-                  currentNode.select("text")
-                    .attr("value", reversedOracleArray[count - 1])
-                    .text(reversedOracleArray[count - 1])
-
+                    
+                    // .text(function (d) { console.log(d); return reversedOracleArray[count - 1] })
+                    
+                    
+                  promiseTimeout(circleTime)
+                  //.then(overlayText(), () => {console.log("rejected")})
+                  //.then()
 
                   if (d.number === 1) {
                     setTimeout(() => {link.filter(function (d) { return d.target.number === randomIndex})
                       .transition()
                       .duration(1000)
-                      .style("stroke", "red")}, (900 * count))
+                      .style("stroke", "red")
+                      .attr("distance", 40)}, (900 * count))
+                      
 
                   } else if (d.target != "null") {
                     setTimeout(() => {link.filter(function (d) { return d.target.number === thisD.target })
                       .transition()
                       .duration(1000)
-                      .style("stroke", "red")}, (900 * count))
-                    
+                      .style("stroke", "red")
+                      .attr("distance", 40)}, (900 * count))
+                      
+                  }
+                  
+                  if (d.number === 1) {
+                    d = nodes[randomIndex - 1];
+                  } else {
+                    d = nodes[d.target - 1];
+                  }
+                  count++
+                }
+              }
+
+              function updateNode() {
+                let root = node.filter(function (d, i) { return i === 0 })
+                // console.log(d)
+                // console.log(root.selectAll("g.child"))
+
+
+                // node.filter(function (d, i) { return i === 0 }).select("text")
+                //   .text("Kevin Bacon")
+
+                // d3.select(this)
+                //   .attr("r", 26)
+                //   .attr("value", "Test")
+                //   .style("fill", "lightsteelblue");
+
+
+
+                d3.selectAll("circle").style("fill", "blue")
+                  .attr("r", 12);//reset all node colors
+                d3.selectAll("line").style("stroke", "green");//reset the color for all links
+                d3.selectAll("text").text(" ") //reset the text for all nodes
+
+
+                let test = "Kevin Bacon"
+                let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
+                let reversedOracleArray = oracleArray.reverse();
+                let randomIndex = Math.ceil(Math.random() * 11) + 1
+                // console.log(randomIndex)
+                let randomNode = node.filter(function (d) { return d.number === randomIndex })
+                // console.log(randomNode)
+                // console.log("randomNode above")
+
+                let count = 1
+                let actorIndex = 0
+                let d = root._groups[0][0].__data__
+                while (d) {
+                  // console.log(d)
+                  // console.log(d._groups[0][0].__data__)
+                  // console.log(this)
+                  // console.log(reversedOracleArray[count - 1])
+                  // console.log(count - 1)
+
+                  let thisD = d
+                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
+                  // let currentNode = d
+                  console.log(currentNode)
+                  let overlayText = (reversedOracleArray) => {
+                    currentNode.select("text")
+                      .attr("value", reversedOracleArray[actorIndex])
+                      .text(reversedOracleArray[actorIndex])
+
+                    actorIndex++
+                    // console.log(currentNode.select("text"))
+                  }
+                  // debugger;
+                  // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
+                  let updateCircle = (reversedOracleArray) => {
+                    currentNode.select("circle").style("fill", "red")
+                    .transition()
+                    .duration(1000)
+                    .attr("r", 30)
+
+                    overlayText(reversedOracleArray)
+                  }
+
+                  let circleTime = count * 750
+                  let textTime = 200
+
+                  let promiseTimeout = (circleTime) => new Promise((udpateCircle, reject) => {
+                    setTimeout(() => {
+                      updateCircle(reversedOracleArray)
+                    }, circleTime)
+                  });
+                  //, (750 * count))
+
+
+
+                  // .text(function (d) { console.log(d); return reversedOracleArray[count - 1] })
+
+
+                  promiseTimeout(circleTime)
+                  //.then(overlayText(), () => {console.log("rejected")})
+                  //.then()
+                  // let node = 
+                  if (d.number === 1) {
+                    setTimeout(() => {
+                      link.filter(function (d) { return d.target.number === randomIndex })
+                      .transition()
+                      .duration(1000)
+                      .style("stroke", "red")
+                      .attr("distance", 40)
+                    }, (900 * count))
+
+
+                  } else if (d.target != "null") {
+                    setTimeout(() => {
+                      link.filter(function (d) { return d.target.number === thisD.target })
+                      .transition()
+                      .duration(1000)
+                      .style("stroke", "red")
+                      .attr("distance", 40)
+                    }, (900 * count))
+
                   }
 
                   if (d.number === 1) {
@@ -300,20 +452,6 @@
                   }
                   count++
                 }
-
-              }
-
-              function updateNode(d) {
-                let test = "Kevin Bacon"
-                let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
-                let randomIndex = Math.floor(Math.random() * 12)
-                console.log(randomIndex)
-                let currentNode = node.filter(function (d) { return d.number === randomIndex })
-                console.log(currentNode)
-
-
-                // console.log(node.filter(function (d, i) {return i === 0 }).select("text"))
-                
 
               }
 
