@@ -19,45 +19,46 @@
       }
     </style>
     <title></title>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
     <script type="text/javascript" src="./bundle.js"></script>
   </head>
   <body>
     <h1>It's Kevin Bacon</h1>
     <main id='main'></main>
-      <svg width="960" height="600"></svg>
-      <script src="https://d3js.org/d3.v5.min.js"></script>
+    <svg width="960" height="600"></svg>
       <script>
         let svg = d3.select("svg"),
             width = +svg.attr("width"),
             height = +svg.attr("height")
 
+        // d3.select(".d3-node-map").append("svg")
 
           let nodes = [
             { "number": 1, "value": '', "target": 2, "source": "null"},
             { "number": 2, "value": '', "target": 14, "source": 1},
-            { "number": 3, "value": '' },
-            { "number": 4, "value": '' },
-            { "number": 5, "value": '' },
-            { "number": 6, "value": '' },
-            { "number": 7, "value": '' },
-            { "number": 8, "value": '' },
-            { "number": 9, "value": '' },
-            { "number": 10, "value": '' },
-            { "number": 11, "value": '' },
-            { "number": 12, "value": '' },
-            { "number": 13, "value": '' },
+            { "number": 3, "value": '', "target": 15, "source": 2 },
+            { "number": 4, "value": '', "target": 16, "source": 3 },
+            { "number": 5, "value": '', "target": 17, "source": 4 },
+            { "number": 6, "value": '', "target": 18, "source": 5 },
+            { "number": 7, "value": '', "target": 19, "source": 6 },
+            { "number": 8, "value": '', "target": 20, "source": 7 },
+            { "number": 9, "value": '', "target": 21, "source": 8 },
+            { "number": 10, "value": '', "target": 22, "source": 9 },
+            { "number": 11, "value": '', "target": 23, "source": 10 },
+            { "number": 12, "value": '', "target": 24, "source": 11 },
+            { "number": 13, "value": '', "target": 25, "source": 12 },
             { "number": 14, "value": '', "target": "null", "source": 2  },
-            { "number": 15, "value": '' },
-            { "number": 16, "value": '' },
-            { "number": 17, "value": '' },
-            { "number": 18, "value": '' },
-            { "number": 19, "value": '' },
-            { "number": 20, "value": '' },
-            { "number": 21, "value": '' },
-            { "number": 22, "value": '' },
-            { "number": 23, "value": '' },
-            { "number": 24, "value": '' },
-            { "number": 25, "value": '' },
+            { "number": 15, "value": '', "target": 'null', "source": 3 },
+            { "number": 16, "value": '', "target": 'null', "source": 4 },
+            { "number": 17, "value": '', "target": 'null', "source": 5 },
+            { "number": 18, "value": '', "target": 'null', "source": 6 },
+            { "number": 19, "value": '', "target": 'null', "source": 7 },
+            { "number": 20, "value": '', "target": 'null', "source": 8 },
+            { "number": 21, "value": '', "target": 'null', "source": 9 },
+            { "number": 22, "value": '', "target": 'null', "source": 10 },
+            { "number": 23, "value": '', "target": 'null', "source": 11 },
+            { "number": 24, "value": '', "target": 'null', "source": 12 },
+            { "number": 25, "value": '', "target": 'null', "source": 13 },
             { "number": 26, "value": '' },
             // { "number": 27, "value": '' },
             // { "number": 28, "value": '' },
@@ -138,7 +139,11 @@
             //add tick instructions: 
             simulation.on("tick", tickActions);
 
-  
+            // let button = d3.select("button#oracle-search");
+            // console.log(button)
+            // let submitButton = Array.from(button)
+            // console.log(submitButton)
+            // button[0].on("click", updateNode)
 
             // draw lines for the links 
             var link = svg.append("g")
@@ -160,7 +165,7 @@
                 .enter()
                 .append("g")
                 .attr("class", "node")
-
+            // console.log(node)
               node.append("circle")
                 .attr("r", 12)
                 .attr("fill", circleColor)
@@ -225,35 +230,79 @@
               function click(d) {
                 // console.log(d3.select("g"))
                 let root = node.filter(function (d, i) {return i === 1 })
-                console.log(root)
+                // console.log(root)
                 // console.log(root.selectAll("g.child"))
+                
 
                 node.filter(function (d, i) { return i === 0 }).select("text")
                   .attr("value", "Kevin Bacon")
                   .text("Kevin Bacon")
 
+                // d3.select(this)
+                //   .attr("r", 26)
+                //   .attr("value", "Test")
+                //   .style("fill", "lightsteelblue");
 
-                d3.select(this)
-                  .attr("r", 26)
-                  .attr("value", "Test")
-                  .style("fill", "lightsteelblue");
+
 
                 d3.selectAll("circle").style("fill", "blue");//reset all node colors
                 d3.selectAll("path").style("stroke", "#c3c3c3");//reset the color for all links
-                console.log(d)
-                while (d.source) {
-                  console.log(node.filter(function (d, i) { return i.circle }))
-                  d3.select("id", d.number).style("fill", "red");//color the node
-                  if (d.source != "null") {
-                    // d3.selectAll(d.source.source.selectALL(d.target.target).style("stroke", "red"))
-                  }//color the path
-                  d = nodes[d.source - 1];
+
+
+                let test = "Kevin Bacon"
+                let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
+                let randomIndex = Math.floor(Math.random() * 12) + 1
+                // console.log(randomIndex)
+                let randomNode = node.filter(function (d) { return d.number === randomIndex })
+                // console.log(randomNode)
+                // console.log("randomNode above")
+
+                  
+                // console.log(d)
+                while (d) {
+                  console.log(d)
+                  // console.log(this)
+                  let thisD = d
+                  // debugger;
+                  // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
+                  
+                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
+                  currentNode.select("circle").style("fill", "red")
+                    .transition()
+                    .duration(1000)
+                    .attr("r", 30)
+                    .style("fill", "red")
+
+                  if (d.number === 1) {
+                    link.filter(function (d) { return d.target.number === randomIndex})
+                      .transition()
+                      .duration(1000)
+                      .style("stroke", "red")
+
+                  } else if (d.target != "null") {
+                    link.filter(function (d) { return d.target.number === thisD.target })
+                      .transition()
+                      .duration(1000)
+                      .style("stroke", "red")
+                    
+                  }
+                  if (d.number === 1) {
+                    d = nodes[randomIndex - 1];
+                  } else {
+                    d = nodes[d.target - 1];
+                  }
                 }
 
               }
 
-              function updateNode() {
+              function updateNode(d) {
                 let test = "Kevin Bacon"
+                let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
+                let randomIndex = Math.floor(Math.random() * 12)
+                console.log(randomIndex)
+                let currentNode = node.filter(function (d) { return d.number === randomIndex })
+                console.log(currentNode)
+
 
                 // console.log(node.filter(function (d, i) {return i === 0 }).select("text"))
                 
