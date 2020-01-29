@@ -235,7 +235,6 @@
                 
 
                 node.filter(function (d, i) { return i === 0 }).select("text")
-                  .attr("value", "Kevin Bacon")
                   .text("Kevin Bacon")
 
                 // d3.select(this)
@@ -251,46 +250,55 @@
 
                 let test = "Kevin Bacon"
                 let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
+                let reversedOracleArray = oracleArray.reverse();
                 let randomIndex = Math.floor(Math.random() * 12) + 1
-                // console.log(randomIndex)
+                console.log(randomIndex)
                 let randomNode = node.filter(function (d) { return d.number === randomIndex })
                 // console.log(randomNode)
                 // console.log("randomNode above")
 
-                  
+                let count = 1
                 // console.log(d)
                 while (d) {
                   console.log(d)
+                  console.log(reversedOracleArray[count - 1])
                   // console.log(this)
                   let thisD = d
                   // debugger;
                   // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
-                  
                   let currentNode = node.filter(function (d) { return d.number === thisD.number })
-                  currentNode.select("circle").style("fill", "red")
+                  setTimeout(() => {currentNode.select("circle").style("fill", "red")
                     .transition()
                     .duration(1000)
-                    .attr("r", 30)
-                    .style("fill", "red")
+                    .attr("r", 30)}, (750 * count))
+
+                  
+                  
+                  currentNode.select("text")
+                    .attr("value", reversedOracleArray[count - 1])
+                    .text(reversedOracleArray[count - 1])
+
 
                   if (d.number === 1) {
-                    link.filter(function (d) { return d.target.number === randomIndex})
+                    setTimeout(() => {link.filter(function (d) { return d.target.number === randomIndex})
                       .transition()
                       .duration(1000)
-                      .style("stroke", "red")
+                      .style("stroke", "red")}, (900 * count))
 
                   } else if (d.target != "null") {
-                    link.filter(function (d) { return d.target.number === thisD.target })
+                    setTimeout(() => {link.filter(function (d) { return d.target.number === thisD.target })
                       .transition()
                       .duration(1000)
-                      .style("stroke", "red")
+                      .style("stroke", "red")}, (900 * count))
                     
                   }
+
                   if (d.number === 1) {
                     d = nodes[randomIndex - 1];
                   } else {
                     d = nodes[d.target - 1];
                   }
+                  count++
                 }
 
               }
