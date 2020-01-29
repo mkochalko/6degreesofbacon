@@ -12,7 +12,6 @@ class Search {
         // console.log(this.container)
         this.container.innerHTML = Search.markup(this);
         // this.clickMeButton = this.container.querySelector('.search-oracle');
-
         this.addEventListeners();
     }
 
@@ -21,8 +20,9 @@ class Search {
             <h3>Kevin Bacon</h3>
             <h4>to</h4>
             <input class="search-input" list="actors" type="text">
-            <button type="submit" class="search-oracle">Submit</button>
+            <button id="oracle-search" type="submit" class="search-oracle">Submit</button>
             <div class="oracle-response"></div>
+            <div class="d3-node-map"></div>
         `
     }
 
