@@ -612,6 +612,8 @@
                       .attr("class", "node-text")
                       .attr("value", reversedOracleArray[actorIndex])
                       .text(reversedOracleArray[actorIndex])
+                      .style("font-size", 10)
+                    
                       updateForce()
                     actorIndex++
                     // console.log(currentNode.select("text"))
@@ -620,10 +622,9 @@
                   // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
                   let updateCircle = (reversedOracleArray) => {
                     currentNode.select("circle").style("fill", "red")
-                    .attr("width", 20)
-                    .transition()
-                    .duration(1000)
-                    .attr("r", 30)
+                      .transition()
+                      .duration(1000)
+                      .attr("r", 30)
 
                     setTimeout(() => {overlayText(reversedOracleArray)}, 800)
                   }
