@@ -9,7 +9,7 @@ class SuccessOracle {
 
     render() {
         for(let i = 0; i < this.response.data.link.length; i++) {
-            this.container.innerHTML += `<div>${this.response.data.link[i]}</div>`
+            this.container.innerHTML += `<div class="result">${this.response.data.link[i]}</div>`
         }   
     }
 }
