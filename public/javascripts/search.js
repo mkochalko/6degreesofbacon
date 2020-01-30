@@ -49,7 +49,7 @@ class Search {
         let failedSearchButton = this.container.querySelector(".oracle-response");
         // console.log(failedSearchButton)
         failedSearchButton.addEventListener("click", (e) => {
-            this.container.querySelector('.oracle-response').innerHTML = ""
+            this.container.querySelector('.oracle-response').innerHTML = null
             this.container.querySelector('.search-input').value = e.target.innerText
             let search = e.target.innerText;
             let configuredSearch = search.split(" ").join("+");

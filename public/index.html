@@ -36,85 +36,105 @@
           let nodes = [
             { "number": 1, "value": '', "target": 2, "source": "null"},
             { "number": 2, "value": '', "target": 14, "source": 1},
-            { "number": 3, "value": '', "target": 15, "source": 2 },
-            { "number": 4, "value": '', "target": 16, "source": 3 },
-            { "number": 5, "value": '', "target": 17, "source": 4 },
-            { "number": 6, "value": '', "target": 18, "source": 5 },
-            { "number": 7, "value": '', "target": 19, "source": 6 },
-            { "number": 8, "value": '', "target": 20, "source": 7 },
-            { "number": 9, "value": '', "target": 21, "source": 8 },
-            { "number": 10, "value": '', "target": 22, "source": 9 },
-            { "number": 11, "value": '', "target": 23, "source": 10 },
-            { "number": 12, "value": '', "target": 24, "source": 11 },
-            { "number": 13, "value": '', "target": 25, "source": 12 },
-            { "number": 14, "value": '', "target": "null", "source": 2  },
-            { "number": 15, "value": '', "target": 'null', "source": 3 },
-            { "number": 16, "value": '', "target": 'null', "source": 4 },
-            { "number": 17, "value": '', "target": 'null', "source": 5 },
-            { "number": 18, "value": '', "target": 'null', "source": 6 },
-            { "number": 19, "value": '', "target": 'null', "source": 7 },
-            { "number": 20, "value": '', "target": 'null', "source": 8 },
-            { "number": 21, "value": '', "target": 'null', "source": 9 },
-            { "number": 22, "value": '', "target": 'null', "source": 10 },
-            { "number": 23, "value": '', "target": 'null', "source": 11 },
-            { "number": 24, "value": '', "target": 'null', "source": 12 },
-            { "number": 25, "value": '', "target": 'null', "source": 13 },
-            { "number": 26, "value": '' },
-            // { "number": 27, "value": '' },
-            // { "number": 28, "value": '' },
-            // { "number": 29, "value": '' },
-            // { "number": 30, "value": '' },
-            // { "number": 31, "value": '' },
-            // { "number": 32, "value": '' },
-            // { "number": 33, "value": '' },
-            // { "number": 34, "value": '' },
-            // { "number": 35, "value": '' },
-            // { "number": 36, "value": '' },
-            // { "number": 37, "value": '' },
-            // { "number": 38, "value": '' },
-            // { "number": 39, "value": '' },
-            // { "number": 40, "value": '' },
-            // { "number": 41, "value": '' },
-            // { "number": 42, "value": '' },
-            // { "number": 43, "value": '' },
-            // { "number": 44, "value": '' },
-            // { "number": 45, "value": '' },
-            // { "number": 46, "value": '' },
-            // { "number": 47, "value": '' },
-            // { "number": 48, "value": '' }
+            { "number": 3, "value": '', "target": 15, "source": 1 },
+            { "number": 4, "value": '', "target": 16, "source": 1 },
+            { "number": 5, "value": '', "target": 17, "source": 1 },
+            { "number": 6, "value": '', "target": 18, "source": 1 },
+            { "number": 7, "value": '', "target": 19, "source": 1 },
+            { "number": 8, "value": '', "target": 20, "source": 1 },
+            { "number": 9, "value": '', "target": 21, "source": 1 },
+            { "number": 10, "value": '', "target": 22, "source": 1 },
+            { "number": 11, "value": '', "target": 23, "source": 1 },
+            { "number": 12, "value": '', "target": 24, "source": 1 },
+            { "number": 13, "value": '', "target": 25, "source": 1 },
+            { "number": 14, "value": '', "target": 26, "source": 2  },
+            { "number": 15, "value": '', "target": 27, "source": 3 },
+            { "number": 16, "value": '', "target": 28, "source": 4 },
+            { "number": 17, "value": '', "target": 29, "source": 5 },
+            { "number": 18, "value": '', "target": 30, "source": 6 },
+            { "number": 19, "value": '', "target": 31, "source": 7 },
+            { "number": 20, "value": '', "target": 32, "source": 8 },
+            { "number": 21, "value": '', "target": 33, "source": 9 },
+            { "number": 22, "value": '', "target": 34, "source": 10 },
+            { "number": 23, "value": '', "target": 35, "source": 11 },
+            { "number": 24, "value": '', "target": 36, "source": 12 },
+            { "number": 25, "value": '', "target": 37, "source": 13 },
+            { "number": 26, "value": '', "target": 38, "source": 14 },
+            { "number": 27, "value": '', "target": 39, "source": 15 },
+            { "number": 28, "value": '', "target": 40, "source": 16 },
+            { "number": 29, "value": '', "target": 41, "source": 17 },
+            { "number": 30, "value": '', "target": 42, "source": 18 },
+            { "number": 31, "value": '', "target": 43, "source": 19 },
+            { "number": 32, "value": '', "target": 44, "source": 20 },
+            { "number": 33, "value": '', "target": 45, "source": 21 },
+            { "number": 34, "value": '', "target": 46, "source": 22 },
+            { "number": 35, "value": '', "target": 47, "source": 23 },
+            { "number": 36, "value": '', "target": 48, "source": 24 },
+            { "number": 37, "value": '', "target": 49, "source": 25 },
+            { "number": 38, "value": '', "target": 'null', "source": 26 },
+            { "number": 39, "value": '', "target": 'null', "source": 27 },
+            { "number": 40, "value": '', "target": 'null', "source": 28 },
+            { "number": 41, "value": '', "target": 'null', "source": 29 },
+            { "number": 42, "value": '', "target": 'null', "source": 30 },
+            { "number": 43, "value": '', "target": 'null', "source": 31 },
+            { "number": 44, "value": '', "target": 'null', "source": 32 },
+            { "number": 45, "value": '', "target": 'null', "source": 33 },
+            { "number": 46, "value": '', "target": 'null', "source": 34 },
+            { "number": 47, "value": '', "target": 'null', "source": 35 },
+            { "number": 48, "value": '', "target": 'null', "source": 36 },
+            { "number": 49, "value": '', "target": 'null', "source": 37 },
+            
           ]
 
           let links = [
-            { "source": 0, "target": 1, "distance": 20 },
-            { "source": 0, "target": 2, "distance": 20 },
-            { "source": 0, "target": 3, "distance": 20 },
-            { "source": 0, "target": 4, "distance": 20 },
-            { "source": 0, "target": 5, "distance": 20 },
-            { "source": 0, "target": 6, "distance": 20 },
-            { "source": 0, "target": 7, "distance": 20 },
-            { "source": 0, "target": 8, "distance": 20 },
-            { "source": 0, "target": 9, "distance": 20 },
-            { "source": 0, "target": 10, "distance": 20 },
-            { "source": 0, "target": 11, "distance": 20 },
-            { "source": 0, "target": 12, "distance": 20 },
-            { "source": 1, "target": 13, "distance": 20 },
-            { "source": 2, "target": 14, "distance": 20 },
-            { "source": 3, "target": 15, "distance": 20 },
-            { "source": 4, "target": 16, "distance": 20 },
-            { "source": 5, "target": 17, "distance": 20 },
-            { "source": 6, "target": 18, "distance": 20 },
-            { "source": 7, "target": 19, "distance": 20 },
-            { "source": 8, "target": 20, "distance": 20 },
-            { "source": 9, "target": 21, "distance": 20 },
-            { "source": 10, "target": 22, "distance": 20 },
-            { "source": 11, "target": 23, "distance": 20 },
-            { "source": 12, "target": 24, "distance": 20 },
-            // { "source": 13, "target": 25, "distance": 20 },
-            // { "source": 14, "target": 26, "distance": 20 },
-            // { "source": 15, "target": 27, "distance": 20 },
-            // { "source": 16, "target": 28, "distance": 20 },
-            // { "source": 17, "target": 29, "distance": 20 },
-            // { "source": 18, "target": 30, "distance": 20 },
+            { "source": 0, "target": 1, "distance": 10 },
+            { "source": 0, "target": 2, "distance": 10 },
+            { "source": 0, "target": 3, "distance": 10 },
+            { "source": 0, "target": 4, "distance": 10 },
+            { "source": 0, "target": 5, "distance": 10 },
+            { "source": 0, "target": 6, "distance": 10 },
+            { "source": 0, "target": 7, "distance": 10 },
+            { "source": 0, "target": 8, "distance": 10 },
+            { "source": 0, "target": 9, "distance": 10 },
+            { "source": 0, "target": 10, "distance": 10 },
+            { "source": 0, "target": 11, "distance": 10 },
+            { "source": 0, "target": 12, "distance": 10 },
+            { "source": 1, "target": 13, "distance": 10 },
+            { "source": 2, "target": 14, "distance": 10 },
+            { "source": 3, "target": 15, "distance": 10 },
+            { "source": 4, "target": 16, "distance": 10 },
+            { "source": 5, "target": 17, "distance": 10 },
+            { "source": 6, "target": 18, "distance": 10 },
+            { "source": 7, "target": 19, "distance": 10 },
+            { "source": 8, "target": 20, "distance": 10 },
+            { "source": 9, "target": 21, "distance": 10 },
+            { "source": 10, "target": 22, "distance": 10 },
+            { "source": 11, "target": 23, "distance": 10 },
+            { "source": 12, "target": 24, "distance": 10 },
+            { "source": 13, "target": 25, "distance": 10 },
+            { "source": 14, "target": 26, "distance": 10 },
+            { "source": 15, "target": 27, "distance": 10 },
+            { "source": 16, "target": 28, "distance": 10 },
+            { "source": 17, "target": 29, "distance": 10 },
+            { "source": 18, "target": 30, "distance": 10 },
+            { "source": 19, "target": 31, "distance": 10 },
+            { "source": 20, "target": 32, "distance": 10 },
+            { "source": 21, "target": 33, "distance": 10 },
+            { "source": 22, "target": 34, "distance": 10 },
+            { "source": 23, "target": 35, "distance": 10 },
+            { "source": 24, "target": 36, "distance": 10 },
+            { "source": 25, "target": 37, "distance": 10 },
+            { "source": 26, "target": 38, "distance": 10 },
+            { "source": 27, "target": 39, "distance": 10 },
+            { "source": 28, "target": 40, "distance": 10 },
+            { "source": 29, "target": 41, "distance": 10 },
+            { "source": 30, "target": 42, "distance": 10 },
+            { "source": 31, "target": 43, "distance": 10 },
+            { "source": 32, "target": 44, "distance": 10 },
+            { "source": 33, "target": 45, "distance": 10 },
+            { "source": 34, "target": 46, "distance": 10 },
+            { "source": 35, "target": 47, "distance": 10 },
+            { "source": 36, "target": 48, "distance": 10 },
           ]
 
           // console.log(d3)
@@ -127,23 +147,32 @@
               return d.distance / 2
             }
 
+            function updateDist(d) {
+              return d.distance + 40
+            }
 
-          var link_force = d3.forceLink(links).distance(dist)
+          var link_force = d3.forceLink(links).distance(function (d) { return d.distance }).strength(0.9)
 
             simulation
-              .force("charge_force", d3.forceManyBody().strength(-500))
+              .force("charge_force", d3.forceManyBody().strength(-100))
               .force("center_force", d3.forceCenter(width / 2, height / 2))
               .force("links", link_force);
 
+          let button;
+          document.addEventListener("DOMContentLoaded", () => {
+            button = document.getElementById("oracle-search")
+            button.addEventListener("click", addNodePath)
+          })
 
             //add tick instructions: 
             simulation.on("tick", tickActions);
-
-            // let button = d3.select("button#oracle-search");
+            // console.log(d3)
+            // console.log(document.getElementById("oracle-search"))
+            // let button = d3.select(document.getElementById("oracle-search"));
             // console.log(button)
             // let submitButton = Array.from(button)
             // console.log(submitButton)
-            // button[0].on("click", updateNode)
+            // button.on("click", updateNode)
 
             // draw lines for the links 
             var link = svg.append("g")
@@ -173,8 +202,9 @@
                 .on("click", click)
 
               node.append("text")
-                .attr("dx", -12)
-                .attr("dy", ".35em")
+                .attr("dx", -20)
+                .attr("dy", -8)
+                .attr("value", "")
                 .text(function (d) { return d.value })
 
               
@@ -234,8 +264,8 @@
                 // console.log(root.selectAll("g.child"))
                 
 
-                node.filter(function (d, i) { return i === 0 }).select("text")
-                  .text("Kevin Bacon")
+                // node.filter(function (d, i) { return i === 0 }).select("text")
+                //   .text("Kevin Bacon")
 
                 // d3.select(this)
                 //   .attr("r", 26)
@@ -244,53 +274,233 @@
 
 
 
-                d3.selectAll("circle").style("fill", "blue");//reset all node colors
-                d3.selectAll("path").style("stroke", "#c3c3c3");//reset the color for all links
+                d3.selectAll("circle").style("fill", "blue")
+                  .attr("r", 12);//reset all node colors
+                d3.selectAll("line").style("stroke", "green");//reset the color for all links
+                d3.selectAll("text").text(" ") //reset the text for all nodes
 
 
                 let test = "Kevin Bacon"
                 let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
                 let reversedOracleArray = oracleArray.reverse();
-                let randomIndex = Math.floor(Math.random() * 12) + 1
-                console.log(randomIndex)
+                let randomIndex = Math.ceil(Math.random() * 11) + 1
+                // console.log(randomIndex)
                 let randomNode = node.filter(function (d) { return d.number === randomIndex })
                 // console.log(randomNode)
                 // console.log("randomNode above")
-
+                
                 let count = 1
+                let actorIndex = 0
                 // console.log(d)
                 while (d) {
-                  console.log(d)
-                  console.log(reversedOracleArray[count - 1])
+                  // console.log(d)
                   // console.log(this)
+                  // console.log(reversedOracleArray[count - 1])
+                  // console.log(count - 1)
+
                   let thisD = d
+                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
+                  // console.log(currentNode)
+                  let overlayText = (reversedOracleArray) => {
+                    currentNode.select("text")
+                      .attr("value", reversedOracleArray[actorIndex])
+                      .text(reversedOracleArray[actorIndex])
+
+                    actorIndex++
+                    // console.log(currentNode.select("text"))
+                  }
                   // debugger;
                   // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
-                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
-                  setTimeout(() => {currentNode.select("circle").style("fill", "red")
+                  let updateCircle = (reversedOracleArray) => {currentNode.select("circle").style("fill", "red")
                     .transition()
                     .duration(1000)
-                    .attr("r", 30)}, (750 * count))
+                    .attr("r", 30)
+
+                    overlayText(reversedOracleArray)
+                  }
+
+                  let circleTime = count * 750
+                  let textTime = 200
+
+                  let promiseTimeout = (circleTime) => new Promise((udpateCircle, reject) => {
+                    setTimeout(() => {
+                      updateCircle(reversedOracleArray)
+                    }, circleTime)
+                  });
+                    //, (750 * count))
 
                   
-                  
-                  currentNode.select("text")
-                    .attr("value", reversedOracleArray[count - 1])
-                    .text(reversedOracleArray[count - 1])
-
+                    
+                    // .text(function (d) { console.log(d); return reversedOracleArray[count - 1] })
+                    
+                    
+                  promiseTimeout(circleTime)
+                  //.then(overlayText(), () => {console.log("rejected")})
+                  //.then()
 
                   if (d.number === 1) {
                     setTimeout(() => {link.filter(function (d) { return d.target.number === randomIndex})
                       .transition()
                       .duration(1000)
-                      .style("stroke", "red")}, (900 * count))
+                      .style("stroke", "red")
+                      .attr("distance", 40)}, (900 * count))
+                      
 
                   } else if (d.target != "null") {
                     setTimeout(() => {link.filter(function (d) { return d.target.number === thisD.target })
                       .transition()
                       .duration(1000)
-                      .style("stroke", "red")}, (900 * count))
-                    
+                      .style("stroke", "red")
+                      .attr("distance", 40)}, (900 * count))
+                      
+                  }
+                  
+                  if (d.number === 1) {
+                    d = nodes[randomIndex - 1];
+                  } else {
+                    d = nodes[d.target - 1];
+                  }
+                  count++
+                }
+              }
+              
+              
+              // let givenLinks = [];
+              // function updateForce(givenLinks) {
+              //       console.log(givenLinks)
+              //       simulation.force("links", d3.forceLink(givenLinks).distance(function (d) { return 100 }).strength(0.1))
+              //       simulation.alpha(1).restart()
+              //   };
+              
+
+              function updateNode() {
+                setTimeout(() => {
+                  let root = node.filter(function (d, i) { return i === 0 })
+                // console.log(d)
+                // console.log(root.selectAll("g.child"))
+
+
+                // node.filter(function (d, i) { return i === 0 }).select("text")
+                //   .text("Kevin Bacon")
+
+                // d3.select(this)
+                //   .attr("r", 26)
+                //   .attr("value", "Test")
+                //   .style("fill", "lightsteelblue");
+
+
+
+                d3.selectAll("circle").style("fill", "blue")
+                  .attr("r", 12);//reset all node colors
+                d3.selectAll("line").style("stroke", "green");//reset the color for all links
+                d3.selectAll("text").text(" ") //reset the text for all nodes
+
+
+                let test = "Kevin Bacon"
+                let oracleSearchArray = document.getElementsByClassName("result");
+                // console.log(oracleSearchArray)
+                let oracleArray = [];
+
+                for (let i = 0; i < oracleSearchArray.length; i++) {
+                  oracleArray.push(oracleSearchArray[i].innerHTML)
+                }
+
+
+                // let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
+                let reversedOracleArray = oracleArray.reverse();
+                let randomIndex = Math.ceil(Math.random() * 11) + 1
+                // console.log(randomIndex)
+                let randomNode = node.filter(function (d) { return d.number === randomIndex })
+                // console.log(randomNode)
+                // console.log("randomNode above")
+
+                let count = 1
+                let actorIndex = 0
+                let d = root._groups[0][0].__data__
+                while (d) {
+                  // console.log(d)
+                  // console.log(d._groups[0][0].__data__)
+                  // console.log(this)
+                  // console.log(reversedOracleArray[count - 1])
+                  // console.log(count - 1)
+
+                  let thisD = d
+                  let currentNode = node.filter(function (d) { return d.number === thisD.number })
+                  // let currentNode = d
+                  console.log(currentNode)
+                  let overlayText = (reversedOracleArray) => {
+                    currentNode.select("text")
+                      .attr("value", reversedOracleArray[actorIndex])
+                      .text(reversedOracleArray[actorIndex])
+
+                    actorIndex++
+                    // console.log(currentNode.select("text"))
+                  }
+                  // debugger;
+                  // console.log(node.select("circle").filter(function (d) { console.log(d); return }))
+                  let updateCircle = (reversedOracleArray) => {
+                    currentNode.select("circle").style("fill", "red")
+                    .transition()
+                    .duration(1000)
+                    .attr("r", 30)
+
+                    setTimeout(() => {overlayText(reversedOracleArray)}, 800)
+                  }
+
+                  let circleTime = count * 750
+                  let textTime = 200
+
+                  let promiseTimeout = (circleTime) => new Promise((udpateCircle, reject) => {
+                    setTimeout(() => {
+                      updateCircle(reversedOracleArray)
+                    }, circleTime)
+                  });
+                  //, (750 * count))
+
+
+
+                  // .text(function (d) { console.log(d); return reversedOracleArray[count - 1] })
+
+
+                  promiseTimeout(circleTime)
+                  //.then(overlayText(), () => {console.log("rejected")})
+                  //.then()
+                  let currentLink; 
+                  if (d.number === 1) {
+                    setTimeout((d) => {
+                      currentLink = link.filter(function (d) { return d.target.number === randomIndex })
+                      currentLink
+                        .transition()
+                        .duration(1000)
+                        .style("stroke", "red")
+
+                      // console.log(currentLink._groups[0][0].__data__)
+                      // givenLinks.push(currentLink._groups[0][0].__data__)
+                      // console.log(givenLinks)
+                      // // simulation.force("charge", -500)
+                      // updateForce(givenLinks)
+
+                      
+                    }, (900 * count))
+
+
+                  } else if (d.target != "null") {
+                    setTimeout((d) => {
+                      currentLink = link.filter(function (d) { return d.target.number === thisD.target })
+                      currentLink
+                        .transition()
+                        .duration(1000)
+                        .style("stroke", "red")
+
+                      // console.log(currentLink._groups[0][0].__data__)
+                      // givenLinks.push(currentLink._groups[0][0].__data__)
+                      // console.log(givenLinks)
+                      // // simulation.force("charge", -500)
+                      // updateForce([currentLink._groups[0][0].__data__])
+
+
+                    }, (900 * count))
+
                   }
 
                   if (d.number === 1) {
@@ -299,24 +509,64 @@
                     d = nodes[d.target - 1];
                   }
                   count++
+                }}, 1000)
+
+              }
+
+
+              function addNodePath() {
+                setTimeout(() => {
+
+                let oracleSearchArray = document.getElementsByClassName("result");
+
+                let oracleArray = [];
+
+                  for (let i = 0; i < oracleSearchArray.length - 1; i++) {
+                    oracleArray.unshift(oracleSearchArray[i].innerHTML)
+                  }
+
+                let nodeCount = nodes.length + 1
+                let newNodes = [];
+                for (let i = 0; i < oracleSearchArray.length - 1; i++) {
+                  let source;
+                  if (newNodes.length === 0) {
+                    source = 1
+                  } else {
+                    source = newNodes[newNodes.length - 1].number
+                  }
+                  newNodes.push({ "number": nodeCount, "value": oracleArray[i], "target": nodeCount + 1, "source": source})
+                  nodeCount++
+                }
+                let linkCount = links.length + 1
+                let newLinks = []
+                for (let i = 0; i < oracleSearchArray.length - 1; i++) {
+                  let source;
+                  let target = linkCount + 1
+                  if (newLinks.length === 0) {
+                    source = 0
+                  } else {
+                    source = links.length
+                  }
+                  newLinks.push({"source": source, "target": target, "distance": 10})
+                  linkCount++
                 }
 
+                console.log(newNodes)
+                console.log(newLinks)
+
+                // let link = svg.append("g")
+                //     .attr("class", "links")
+                //     .selectAll("line")
+                //     .data(newLinks)
+                //     .enter().append("line")
+                //     .attr("stroke-width", 3)
+                //     .attr("source", function (d) { return d.source.source })
+                //     .attr("target", function (d) { return d.target.number })
+                //     .style("stroke", "red")
+
+
+                }, 1000)
               }
-
-              function updateNode(d) {
-                let test = "Kevin Bacon"
-                let oracleArray = ["David Koechner", "My One and Only", "Kevin Bacon"]
-                let randomIndex = Math.floor(Math.random() * 12)
-                console.log(randomIndex)
-                let currentNode = node.filter(function (d) { return d.number === randomIndex })
-                console.log(currentNode)
-
-
-                // console.log(node.filter(function (d, i) {return i === 0 }).select("text"))
-                
-
-              }
-
       </script>
   </body>
 </html>
