@@ -1,5 +1,8 @@
-text {
-    width: 30px;
-    height: 10px;
-    color: white;
+g text.node-text {
+    fill: white;
+    text-anchor: middle;
+}
+
+g {
+    max-width: 20px;
 }
