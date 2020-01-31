@@ -3,9 +3,9 @@ const app = express()
 const path = require('path')
 const fetch = require('node-fetch')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
-const ORACLE_API = require('./config/keys')
+const KEYS = require('./config/keys')
 
-console.log(`ORACLE_API is: ${ORACLE_API}`)
+console.log(`ORACLE_API is: ${KEYS.ORACLE_API}`)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('public'));
@@ -21,7 +21,7 @@ if (process.env.NODE_ENV === 'production') {
 
 
 app.get('/search', (req, res) => {
-  fetch(`https://oracleofbacon.org/cgi-bin/json?enc=utf-8&p=${ORACLE_API}&a=Kevin+Bacon&b=${req.query.string}&u=1&rt=1&sy=1850&ey=2050&gm=0xef3ef7f&dir=0&co=`)
+  fetch(`https://oracleofbacon.org/cgi-bin/json?enc=utf-8&p=${KEYS.ORACLE_API}&a=Kevin+Bacon&b=${req.query.string}&u=1&rt=1&sy=1850&ey=2050&gm=0xef3ef7f&dir=0&co=`)
     .then(res => {
       console.log(res)
       return res.text()
