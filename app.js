@@ -5,7 +5,14 @@ const fetch = require('node-fetch')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
 const ORACLE_API = require('../config/keys')
 
-app.use(express.static('public'))
+// app.use(express.static('public'))
+
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static('public'));
+  app.get('/', (req, res) => {
+    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+  })
+}
 
 app.get('/', (request, res) => {
   res.sendFile(path.join(__dirname, './public/index.html'))
