@@ -2,5 +2,5 @@
 bundle.js
 bundle.js.map
 
-keys_dev.js
+config/keys_dev.js
 
