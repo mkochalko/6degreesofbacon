@@ -15,7 +15,7 @@
     "build": "webpack --watch",
     "start": "node app.js",
     "start:debug": "DEBUG=* node app.js",
-    "heroku-postbuild": "npm install && webpack"
+    "heroku-postbuild": "npm install && webpack && npm start"
   },
   "dependencies": {
     "axios": "^0.18.1",
