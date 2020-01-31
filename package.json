@@ -15,7 +15,7 @@
     "build": "webpack --watch",
     "start": "node app.js",
     "start:debug": "DEBUG=* node app.js",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm start --prefix public && npm run build --prefix public"
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix frontend && npm run build --prefix frontend"
   },
   "dependencies": {
     "axios": "^0.18.1",
