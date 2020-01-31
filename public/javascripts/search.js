@@ -33,7 +33,6 @@ class Search {
             let configuredSearch = search.split(" ").join("+");
             axios.get(`/search?string=${configuredSearch}`)
                 .then((response) => {
-                    console.log(response)
                     if (response.data.status === 'success') {
                         new SuccessOracle(this.container.querySelector('.oracle-response'), response).render();
                     } else if (response.data.status === 'spellcheck') {
