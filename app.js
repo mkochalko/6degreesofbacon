@@ -5,6 +5,7 @@ const fetch = require('node-fetch')
 const PORT = process.env.PORT || 8000; // process.env accesses heroku's environment variables
 const ORACLE_API = require('./config/keys')
 
+console.log(ORACLE_API)
 
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static('public'));
@@ -28,6 +29,9 @@ app.get('/search', (req, res) => {
       // let results = JSON.parse(body)
       // console.log(body)
       res.send(body)
+    })
+    .catch(error => {
+      res.send(error)
     })
 })
 
