@@ -31,9 +31,6 @@ app.get('/search', (req, res) => {
       console.log(body)
       res.send(body)
     })
-    .catch(error => {
-      res.send(error)
-    })
 })
 
 // create route to get single book by its isbn
