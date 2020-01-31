@@ -1,0 +1,8 @@
+g text.node-text {
+    fill: white;
+    text-anchor: middle;
+}
+
+g {
+    max-width: 20px;
+}
