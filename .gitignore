@@ -1,6 +1,5 @@
 /node_modules
+keys_dev.js
 bundle.js
 bundle.js.map
-
-keys_dev.js
 
