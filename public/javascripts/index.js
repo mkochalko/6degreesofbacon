@@ -1,5 +1,7 @@
 const axios = require('axios');
 const Search = require('./search');
+const Footer = require('./footer');
+const Sidebar = require('./sidebar');
 
 document.addEventListener('DOMContentLoaded', () => {
 
@@ -16,6 +18,21 @@ document.addEventListener('DOMContentLoaded', () => {
     new Search(main).render()
     
     
+})
+
+document.addEventListener("DOMContentLoaded", () => {
+    let sidebar = document.getElementById("sidebar")
+
+
+    new Sidebar(sidebar).render()
+})
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    let footer = document.getElementById("footer")
+
+
+    new Footer(footer).render()
 })
 
 

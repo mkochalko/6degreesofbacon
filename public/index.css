@@ -1,6 +1,6 @@
 body {
     background-color: #161B40;
-    color: white;
+    color: #BCD9E8;
 }
 
 main {
@@ -67,4 +67,55 @@ input {
 
 .failed-oracle-response {
     padding: 10px;
+}
+
+.footer-container {
+    bottom: 0;
+    position: fixed;
+    width: 100%;
+    display: flex;
+    justify-content: space-around;
+    padding: 10px;
+    background-color: #161B40;
+
+}
+
+.footer-container > a {
+    height: 60px;
+    width: 60px;
+}
+
+.footer-container img {
+    height: 60px;
+    width: 60px;
+}
+
+.footer-section-container {
+    display: flex;
+}
+
+.footer-section-container > h4 {
+    width: 100px;
+}
+#sidebar {
+    width: 200px;
+    padding: 10px;
+    background-color: #161B40;
+    z-index: 2;
+}
+
+.sidebar {
+    background-color: #161B40;
+    color: #BCD9E8;
+}
+
+.sidebar-contents > h4 {
+    font-size: 24px;
+    padding-bottom: 15px;
+}
+
+.sidebar-contents > h6 {
+    font-size: 18px;
+    padding-bottom: 10px;
+    line-height: 1.5em;
 }
