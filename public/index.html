@@ -745,15 +745,17 @@
                 .attr("x2", function (d) { return d.target.x; })
                 .attr("y2", function (d) { return d.target.y; });
             } 
-            function nextNode() {
+            function nextNode(oracleArray) {
+              let nodeValue = oracleArray[count]
+
               if (nodes.length === 1) {
-                addedNode = { "number": 2, "value": "Connection", "target": nodes.length + 2, "source": 1 }
+                addedNode = { "number": 2, "value": nodeValue, "target": nodes.length + 2, "source": 1 }
               } else {
                 let nodeNumber = nodes.length + 1
-                let nodeValue = `${nodeNumber}`
                 let nodeSource = nodes[nodeNumber - 2]
-                addedNode = { "number": nodeNumber, "value": nodeValue, "target": nodes.length + 2, "source": nodeSource, x: , y: }
+                addedNode = { "number": nodeNumber, "value": nodeValue, "target": nodes.length + 2, "source": nodeSource, x: width / 2, y: height / 3}
               }
+              console.log(addedNode)
               nodes.push(addedNode)
             }
 
@@ -765,36 +767,40 @@
                 let linkTarget = nodes.length - 1
                 addedLink = { "source": linkSource, "target": linkTarget, "distance": 5 }
               }
+              console.log(addedLink)
               links.push(addedLink)
             }
 
             function addPath() {
-              nextNode()
-              // console.log(nodes)
-              nextLink()
-              // console.log(links)
-              update()
+              setTimeout(() => {
+
+                let oracleSearchArray = document.getElementsByClassName("result");
+                let oracleArray = [];
+                
+                for (let i = 0; i < oracleSearchArray.length - 1; i++) {
+                  oracleArray.unshift(oracleSearchArray[i].innerHTML)
+                }
+                console.log(oracleArray)
+                count = 0
+                while (count < oracleArray.length) {
+                  nextNode(oracleArray)
+                  nextLink()
+                  update()
+                  count++
+                }
+              }, 1000)
             }
 
             function update() {
               simulation.nodes(nodes)
-              // console.log(node)
               node = svg.selectAll(".node").data(nodes)
-              // console.log(nodes)
-              // console.log(node)
-              // console.log(link)
               link = svg.selectAll("line").data(links)
-              // console.log(links)
-              // console.log(link)
               
-
               link.exit().remove();
-
 
               link.enter().append("line")
                 .attr("stroke-width", 3)
                 .style("stroke", "#43BEE5")
-
 
               node.exit().remove()
 
@@ -806,10 +812,14 @@
                 .attr("r", 6)
                 .attr("fill", "#F40058")
                 .attr("id", function (d) { return d.number; })
+                .transition()
+                .duration(1500)
 
               node.append("text")
                 .attr("value", "")
                 .text(function (d) { return d.value })
+                .transition()
+                .duration(2000)
 
               let link_force = d3.forceLink(links).strength(0.5)
 
@@ -821,8 +831,6 @@
 
               simulation.alpha(1).restart()
               
-
-
             }
       </script>
   </body>
