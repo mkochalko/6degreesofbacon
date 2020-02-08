@@ -671,6 +671,218 @@
 
 
             ////NEW STUFF STARTS HERE
+        let nodes = [
+            { "number": 1, "value": "Kevin Bacon", "target": "null", "source": "null" }
+          ]
+        let links = [];
+          let
+              fill, simulation, node, link, cursor,
+              nodeElements, linkElements, textElements
+
+          function setSimulation() {
+            simulation = d3.forceSimulation()
+              .nodes(nodes)
+              .force('link', d3.forceLink()
+                .distance(0)
+                .strength(0.6)
+              )
+              .force('charge',
+                d3.forceManyBody()
+                  .strength(-100)
+              )
+              .force("x", d3.forceX(width / 2))
+              .force("y", d3.forceY(height / 2))
+              .force('center', d3.forceCenter(width / 2, height / 2))
+              .force('collision', d3.forceCollide(20))
+              .on('tick', tickActions);
+          }
+
+          let button;
+          document.addEventListener("DOMContentLoaded", () => {
+            setSimulation();
+            startSimulation();
+            submitButton = document.getElementById("oracle-search")
+            submitButton.addEventListener("click", addPath)
+          })
+
+          function startSimulation() {
+            nodeElements = svg.selectAll(".node")
+              .data(nodes);
+
+            nodeElements.enter()
+              .append("circle")
+              .attr("class", "node")
+              .attr("r", 12)
+              .attr("fill", "#F40058")
+              .attr("cx", width / 2)
+              .attr("cy", height / 3)
+
+            nodeElements.exit().remove();
+
+            textElements = svg.selectAll(".my-text")
+              .data(nodes)
+
+            textElements.enter()
+              .append("text")
+              .attr("class", "my-text")
+              .text("test")
+              .style("fill", "#F6F6F6")
+
+            textElements.exit().remove()
+
+
+            console.log(simulation)
+            simulation.nodes(nodes)
+            simulation.force("link").links(links)
+            simulation.restart();
+
+            linkElements = svg
+              .selectAll('.link')
+              .data(links);
+
+            linkElements.exit().remove();
+
+            linkElements.enter()
+              .append("line")
+              .attr("class", "link")
+                .attr("stroke-width", 3)
+                .style("stroke", "#43BEE5");
+
+            simulation.alphaTarget(0.3).restart();
+          }
+
+          // let link = svg.append("g")
+          //     .attr("class", "links")
+          //   .selectAll("line")
+          //   .data(links)
+          //   .enter().append("line")
+          //     .attr("stroke-width", 3)
+          //     .style("stroke", "#43BEE5")
+
+          // let node = svg.selectAll(".node")
+          //   .data(nodes)
+          //   .enter()
+          //   .append("g")
+          //   .attr("class", "node")
+          //   .attr("width", 20)
+
+          // node.append("circle")
+          //   .attr("r", 6)
+          //   .attr("fill", "#F40058")
+          //   .attr("id", function (d) { return d.number; })
+          //   .on("click", "click")
+
+          // node.append("text")
+          //   .attr("value", "")
+          //   .text(function (d) { return d.value })
+
+          function tickActions() {
+            let nodeElements = svg.selectAll('.node');
+            let linkElements = svg.selectAll('.link');
+            let textElements = svg.selectAll('.my-text');
+
+            nodeElements
+              .attr("cx", function (d) { return d.x; })
+              .attr("cy", function (d) { return d.y; });
+
+            textElements
+              .attr("x", function (d) { return d.x; })
+              .attr("y", function (d) { return d.y; })
+            // nodeElements.selectAll("text")
+            //   .attr("x", function (d) { return d.x; })
+            //   .attr("y", function (d) { return d.y; });
+
+            // console.log(link.data(links))
+            // console.log(link)
+            linkElements
+              .attr("x1", function (d) { return d.source.x; })
+              .attr("y1", function (d) { return d.source.y; })
+              .attr("x2", function (d) { return d.target.x; })
+              .attr("y2", function (d) { return d.target.y; });
+          }
+
+          // function updateNode() {
+          //   // simulation.stop()
+
+          //   simulation.nodes(nodes);
+
+          //   // simulation.on("tick", tickActions);
+
+
+          //   // let newLink_force = d3.forceLink(links).distance(function (d) { return 5 }).strength(0.1)
+          //   // simulation
+          //   //   .force("charge_force", d3.forceManyBody().strength(-150))
+          //   //   .force("center_force", d3.forceCenter(width / 2, height / 3))
+          //   //   .force("collision", d3.forceCollide().radius(20))
+          //   //   .force("links", newLink_force)
+
+          //   link = d3.select("svg").select(".links")
+          //     .data(links)
+          //     .enter()
+          //     .append("line")
+          //       .attr("stroke-width", 3)
+          //       .style("stroke", "#43BEE5")
+
+          //   link.exit().remove()
+
+          //   node = svg.selectAll(".node")
+          //     .data(nodes)
+          //     .enter()
+          //     .append("g")
+          //     .attr("class", "node")
+          //     .attr("width", 20)
+
+          //   node.append("circle")
+          //     .attr("r", 6)
+          //     .attr("fill", "#F40058")
+          //     .attr("id", function (d) { return d.number; })
+
+          //   node.append("text")
+          //     .attr("value", "")
+          //     .text(function (d) { return d.value })
+
+          //   // node.exit().remove()
+            
+            
+
+            
+
+          //   simulation.alpha(1).restart()
+
+          // }
+
+          function nextNode() {
+            let nodeNumber = nodes.length + 1
+            let newNode;
+            if (nodes.length === 1) {
+              newNode = { "number": 2, "value": nodeNumber, "target": "null", "source": 1 }
+            } else {
+              newNode = { "number": nodeNumber, "value": nodeNumber, "target": "null", "source": nodes[nodeNumber - 2] }
+            }
+            // console.log(nodes)
+            nodes.push(newNode);
+            console.log(nodes)
+          }
+
+          function nextLink() {
+            let nextLink;
+            let lastNode = nodes.length
+            if (nodes.length === 2) {
+              nextLink = { "source": 0, "target": 1, "distance": 5 }
+            } else {
+              nextLink = { "source": nodes[lastNode - 2], "target": nodes[lastNode - 1], "distance": 5 }
+            }
+            newLink = nextLink;
+            links.push(nextLink);
+            console.log(links)
+          }
+
+          function addPath() {
+            nextNode();
+            nextLink();
+            startSimulation();
+          }
+
       </script>
   </body>
 </html>
