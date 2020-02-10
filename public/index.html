@@ -589,7 +589,6 @@
           //         for (let i = 0; i < oracleSearchArray.length - 1; i++) {
           //           oracleArray.unshift(oracleSearchArray[i].innerHTML)
           //         }
-
           //       let nodeCount = nodes.length + 1
           //       let newNodes = [];
           //       for (let i = 0; i < oracleSearchArray.length - 1; i++) {
@@ -683,17 +682,16 @@
             simulation = d3.forceSimulation()
               .nodes(nodes)
               .force('link', d3.forceLink()
-                .distance(0)
-                .strength(0.6)
+                .distance(10)
+                .strength(0.3)
               )
-              .force('charge',
-                d3.forceManyBody()
-                  .strength(-100)
+              .force('charge',d3.forceManyBody()
+                .strength(function(d) { return d.number === 1 ? -1000 : -100})
               )
-              .force("x", d3.forceX(width / 2))
-              .force("y", d3.forceY(height / 2))
+              // .force("x", d3.forceX(width / 2))
+              // .force("y", d3.forceY(height / 2))
               .force('center', d3.forceCenter(width / 2, height / 2))
-              .force('collision', d3.forceCollide(20))
+              .force('collision', d3.forceCollide(30))
               .on('tick', tickActions);
           }
 
@@ -706,35 +704,6 @@
           })
 
           function startSimulation() {
-            nodeElements = svg.selectAll(".node")
-              .data(nodes);
-
-            nodeElements.enter()
-              .append("circle")
-              .attr("class", "node")
-              .attr("r", 12)
-              .attr("fill", "#F40058")
-              .attr("cx", width / 2)
-              .attr("cy", height / 3)
-
-            nodeElements.exit().remove();
-
-            textElements = svg.selectAll(".my-text")
-              .data(nodes)
-
-            textElements.enter()
-              .append("text")
-              .attr("class", "my-text")
-              .text("test")
-              .style("fill", "#F6F6F6")
-
-            textElements.exit().remove()
-
-
-            console.log(simulation)
-            simulation.nodes(nodes)
-            simulation.force("link").links(links)
-            simulation.restart();
 
             linkElements = svg
               .selectAll('.link')
@@ -745,8 +714,40 @@
             linkElements.enter()
               .append("line")
               .attr("class", "link")
-                .attr("stroke-width", 3)
-                .style("stroke", "#43BEE5");
+              .attr("stroke-width", 3)
+              .style("stroke", "#43BEE5");
+
+
+            nodeElements = svg.selectAll(".node")
+              .data(nodes);
+
+            nodeElements.enter()
+              .append("circle")
+              .attr("class", "node")
+              .attr("r", 12)
+              .attr("fill", "#F40058")
+              .attr("cx", width / 2)
+              .attr("cy", height / 2)
+
+            nodeElements.exit().remove();
+
+            textElements = svg.selectAll(".my-text")
+              .data(nodes)
+
+            textElements.enter()
+              .append("text")
+              .attr("class", "my-text")
+              .text(function (d) { return d.value })
+              .style("fill", "#F6F6F6")
+
+            textElements.exit().remove()
+
+
+            simulation.nodes(nodes)
+            simulation.force("link").links(links)
+            simulation.restart();
+
+            
 
             simulation.alphaTarget(0.3).restart();
           }
@@ -778,12 +779,30 @@
 
           function tickActions() {
             let nodeElements = svg.selectAll('.node');
+            let rootElement = svg.selectAll('.root');
             let linkElements = svg.selectAll('.link');
             let textElements = svg.selectAll('.my-text');
+
+
+            linkElements
+              .attr("x1", function (d) { return d.source.x; })
+              .attr("y1", function (d) { return d.source.y; })
+              .attr("x2", function (d) { return d.target.x; })
+              .attr("y2", function (d) { return d.target.y; });
 
             nodeElements
               .attr("cx", function (d) { return d.x; })
               .attr("cy", function (d) { return d.y; });
+
+            nodes[0].x = width / 2;
+            nodes[0].y = height / 2;
+            // rootElement
+            //   .attr("x", width / 2)
+            //   .attr("y", height / 2);
+
+            // nodeElements._groups[0].select("circle")
+            //   .attr("fx", width / 2)
+            //   .attr("fy", height / 3)
 
             textElements
               .attr("x", function (d) { return d.x; })
@@ -794,11 +813,6 @@
 
             // console.log(link.data(links))
             // console.log(link)
-            linkElements
-              .attr("x1", function (d) { return d.source.x; })
-              .attr("y1", function (d) { return d.source.y; })
-              .attr("x2", function (d) { return d.target.x; })
-              .attr("y2", function (d) { return d.target.y; });
           }
 
           // function updateNode() {
@@ -851,36 +865,53 @@
 
           // }
 
-          function nextNode() {
+          function nextNode(title, count) {
             let nodeNumber = nodes.length + 1
             let newNode;
-            if (nodes.length === 1) {
-              newNode = { "number": 2, "value": nodeNumber, "target": "null", "source": 1 }
+            if (count === 0) {
+              newNode = { "number": 2, "value": title, "target": "null", "source": 1 }
             } else {
-              newNode = { "number": nodeNumber, "value": nodeNumber, "target": "null", "source": nodes[nodeNumber - 2] }
+              newNode = { "number": nodeNumber, "value": title, "target": "null", "source": nodes[nodeNumber - 2] }
             }
             // console.log(nodes)
             nodes.push(newNode);
-            console.log(nodes)
           }
 
-          function nextLink() {
+          function nextLink(count) {
             let nextLink;
             let lastNode = nodes.length
-            if (nodes.length === 2) {
-              nextLink = { "source": 0, "target": 1, "distance": 5 }
+            if (count === 0) {
+              nextLink = { "source": 0, "target": lastNode - 1, "distance": 5 }
             } else {
               nextLink = { "source": nodes[lastNode - 2], "target": nodes[lastNode - 1], "distance": 5 }
             }
             newLink = nextLink;
             links.push(nextLink);
-            console.log(links)
           }
 
           function addPath() {
-            nextNode();
-            nextLink();
-            startSimulation();
+            setTimeout(() => {
+              let oracleSearchArray = document.getElementsByClassName("result");
+
+              let oracleArray = [];
+
+              for (let i = 0; i < oracleSearchArray.length - 1; i++) {
+                oracleArray.unshift(oracleSearchArray[i].innerHTML)
+              }
+              let count = 0;
+              while (count < oracleArray.length) {
+
+                nextNode(oracleArray[count], count);
+                nextLink(count);
+                startSimulation();
+
+
+                count++;
+              }
+            }, 500)
+            // setTimeout(() => {
+            //   simulation.stop()
+            // }, 5000)
           }
 
       </script>
