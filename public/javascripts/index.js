@@ -28,12 +28,12 @@ document.addEventListener("DOMContentLoaded", () => {
 })
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    let footer = document.getElementById("footer")
+// document.addEventListener("DOMContentLoaded", () => {
+//     let footer = document.getElementById("footer")
 
 
-    new Footer(footer).render()
-})
+//     new Footer(footer).render()
+// })
 
 
 // let isbn = '0201558025';

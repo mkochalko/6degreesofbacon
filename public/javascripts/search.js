@@ -16,7 +16,7 @@ class Search {
 
     static markup() {
         return `
-            <h1 class="title">What's Their Bacon Number?</h1>
+            <h1 class="title">What's Their Bacon Number?</h1><h1 class="bacon-number">  </h1>
             <div class="search-header-container">
                 <h3 class="search-header-container-item">Kevin Bacon</h3>
                 <h4 class="search-header-container-item">to</h4>
@@ -46,6 +46,12 @@ class Search {
                 .catch((error) => {
                     console.log(error);
                 });
+            setTimeout(() => {
+                let baconArray = this.container.getElementsByClassName("result")
+                let baconNumber = (baconArray.length - 1) / 2;
+                let title = this.container.querySelector(".bacon-number")
+                title.innerHTML = ` ${baconNumber}`
+            }, 2000)
             }
         )
 
@@ -53,28 +59,16 @@ class Search {
         
         
         let failedSearchButton = this.container.querySelector(".failed-oracle-response");
-        // console.log(failedSearchButton)
         failedSearchButton.addEventListener("click", (e) => {
             this.container.querySelector('.oracle-response').innerHTML = ''
             this.container.querySelector('.failed-oracle-response-container').innerHTML = ''
             this.container.querySelector('.search-input').value = e.target.innerText
 
             document.getElementById("oracle-search").click();
-            // let search = e.target.innerText;
-            // let configuredSearch = search.split(" ").join("+");
-            // axios.get(`/search?string=${configuredSearch}`)
-            //     .then((response) => {
-            //         if (response.data.status === 'success') {
-            //             new SuccessOracle(this.container.querySelector('.oracle-response'), response).render();
-            //         } else if (response.data.status === 'spellcheck') {
-            //             new FailedOracleContainer(this.container.querySelector('.failed-oracle-response-container'), response).render();
-            //         }
-            //     })
-            //     .catch((error) => {
-            //         console.log(error);
-            //     });
             }
         )
+
+        
     }
 
 }
