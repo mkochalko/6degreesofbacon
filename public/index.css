@@ -1,15 +1,29 @@
 body {
     background-color: #161B40;
-    color: #BCD9E8;
+    color: #e6f7ff;
 }
 
 main {
     font-family: 'Bowlby One SC', cursive;
 }
 
-g text {
+text {
     fill: #F6F6F6;
     text-anchor: middle;
+    z-index: 5;
+}
+
+svg {
+    overflow: scroll;
+    overflow: hidden;
+}
+
+.bacon-number {
+    height: 30px;
+    text-align: center;
+    font-size: 36px;
+    padding-bottom: 15px;
+    color: #F40058;
 }
 
 g {
@@ -73,26 +87,34 @@ input {
 .footer-container {
     bottom: 0;
     position: fixed;
-    width: 100%;
-    display: flex;
-    justify-content: space-around;
+    width: 200px;
     padding: 10px;
     background-color: #161B40;
+}
 
+.footer-container h4 {
+    font-size: 24px;
+}
+
+.footer-links-container {
+    padding: 5px;
+    display: flex;
+    justify-content: flex-start;
 }
 
 .footer-container > a {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
 }
 
 .footer-container img {
-    height: 60px;
-    width: 60px;
+    height: 50px;
+    width: 50px;
 }
 
 .footer-section-container {
     display: flex;
+    padding: 5px;
 }
 
 .footer-section-container > h4 {
