@@ -25,7 +25,7 @@
     <main id='main'></main>
     <div class="d3-container">
       <section id='sidebar'></section>
-      <svg width="1200" height="780"></svg>
+      <svg width="1500" height="780"></svg>
     </div>
     <section id='footer'></section>
       <script>
@@ -47,7 +47,6 @@
           currentClick = e.target;
         })
 
-        // svg.on("click", actorInfoReset);
 
         function setSimulation() {
           simulation = d3.forceSimulation()
@@ -61,7 +60,7 @@
             )
             // .force("x", d3.forceX(width / 2))
             // .force("y", d3.forceY(height / 2))
-            .force('center', d3.forceCenter(width / 2, height / 2))
+            .force('center', d3.forceCenter(width / 1.5, height / 2))
             .force('collision', d3.forceCollide(40))
             .on('tick', tickActions);
         }
@@ -99,10 +98,8 @@
               .attr("value", function(d) { return d.value})
               .attr("r", 24)
               .attr("fill", "#F40058")
-              .attr("cx", width / 2)
+              .attr("cx", width / 1.5)
               .attr("cy", height / 2)
-              .on("mouseover", nodeHover)
-              // .on("mouseout", nodeReset)
               .on("click", actorInfo)
           } else {
             nodeElements.enter()
@@ -111,7 +108,7 @@
               .attr("value", function (d) { return d.value })
               .attr("r", 8)
               .attr("fill", "#EFA500")
-              .attr("cx", width / 2)
+              .attr("cx", width / 1.5)
               .attr("cy", height / 2)
               // .on("mouseover", nodeHover)
               // .on("mouseout", nodeReset)
@@ -130,7 +127,7 @@
               .text(function (d) { return d.number === 1 ? '' : d.value })
               .style("fill", "#F6F6F6")
               .style("font-size", "18px")
-              .attr("x", width / 2)
+              .attr("x", width / 1.5)
               .attr("y", height / 2)
           } else {
             textElements.enter()
@@ -139,7 +136,7 @@
               .text(function (d) { return d.value })
               .style("fill", "#F6F6F6")
               .style("font-size", "10px")
-              .attr("x", width / 2)
+              .attr("x", width / 1.5)
               .attr("y", height / 2)
               .attr("dy", 20)
           }
@@ -153,7 +150,7 @@
               .append("image")
               .attr("class", "image")
               .attr("xlink:href", "/javascripts/images/kevin_bacon.png")
-              .attr("x", (width / 2) - 37)
+              .attr("x", (width / 1.5) - 37)
               .attr("y", (height / 2) - 25)
               .attr("height", 75)
               .attr("width", 75);
@@ -188,7 +185,7 @@
             .attr("cx", function (d) { return d.x; })
             .attr("cy", function (d) { return d.y; });
 
-          nodes[0].fx = width / 2;
+          nodes[0].fx = width / 1.5;
           nodes[0].fy = height / 2;
 
           textElements
@@ -248,15 +245,15 @@
           }, 10000)
         }
 
-        function nodeHover(d) {
-          nodeElements = svg.selectAll('.node');
-          let currentNode = nodeElements.filter(function (f) { return f.number === d.number  })
-          currentNode
-            .transition()
-            .duration(1000)
-            .attr("r", function(d) {console.log(d); return 40})
-            .attr("fill", "#41B853")
-        }
+        // function nodeHover(d) {
+        //   nodeElements = svg.selectAll('.node');
+        //   let currentNode = nodeElements.filter(function (f) { return f.number === d.number  })
+        //   currentNode
+        //     .transition()
+        //     .duration(1000)
+        //     .attr("r", function(d) {console.log(d); return 40})
+        //     .attr("fill", "#41B853")
+        // }
 
         // function nodeReset(d) {
         //   nodeElements = svg.selectAll('.node');
@@ -270,7 +267,6 @@
 
         function actorInfo(d) {
           d3.select(this)
-            .on("mouseover", "")
             .on("click", actorInfoReset)
             .transition()
               .duration(750)
@@ -301,13 +297,11 @@
             console.log(currentClick)
             console.log("hit")
             d3.select(currentClick)
-              .attr("class", "node")
               .attr("r", 24)
               .attr("fill", "#F40058")
               .attr("id", "")
-              .attr("cx", width / 2)
+              .attr("cx", width / 1.5)
               .attr("cy", height / 2)
-              .on("mouseover", nodeHover)
               .on("click", actorInfo)
 
             textElements = svg.selectAll(".my-text")
@@ -319,7 +313,7 @@
               currentText
                 .style("fill", "#F6F6F6")
                 .style("font-size", "18px")
-                .attr("x", width / 2)
+                .attr("x", width / 1.5)
                 .attr("y", height / 2)
             } 
 
