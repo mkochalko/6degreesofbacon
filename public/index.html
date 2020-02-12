@@ -39,9 +39,10 @@
             { "number": 1, "value": "Kevin Bacon", "target": "null", "source": "null", "photo": "/javascripts/images/kevin_bacon.png" }
           ]
         let links = [];
+        let movieArray = [];
         let
             fill, simulation, node, link, cursor,
-            nodeElements, linkElements, textElements, imageElements, currentClick
+            nodeElements, linkElements, textElements, imageElements, currentClick, divElements
 
         document.addEventListener("click", (e) => {
           currentClick = e.target;
@@ -100,7 +101,6 @@
               .attr("fill", "#F40058")
               .attr("cx", width / 1.5)
               .attr("cy", height / 2)
-              .on("click", actorInfo)
           } else {
             nodeElements.enter()
               .append("circle")
@@ -110,9 +110,13 @@
               .attr("fill", "#EFA500")
               .attr("cx", width / 1.5)
               .attr("cy", height / 2)
-              // .on("mouseover", nodeHover)
-              // .on("mouseout", nodeReset)
-
+              .on("click", actorInfo)
+              .on("mouseover", function(d) {
+                d3.select(this).style("cursor", "pointer")
+              })
+              .on("mouseout", function(d) {
+                d3.select(this).style("cursor", "default")
+              })
           }
 
           nodeElements.exit().remove();
@@ -140,7 +144,24 @@
               .attr("y", height / 2)
               .attr("dy", 20)
           }
-          textElements.exit().remove()
+          textElements.exit().remove();
+
+          divElements = svg.selectAll("div")
+            .data(movieArray)
+          
+          if (nodes.length % 2 === 0) {
+            divElements.enter()
+              .append("text")
+              .attr("class", "movie-info hidden")
+              .text(function (d) { return d.innerHTML})
+              .style("fill", "#F6F6F6")
+              .style("font-size", "36px")
+              .attr("x", 250)
+              .attr("y", 250)
+              .attr("dy", function (d) {return d.id * 50})
+          }
+
+          divElements.exit().remove();
 
           imageElements = svg.selectAll("image")
             .data(nodes)
@@ -220,7 +241,7 @@
         function addPath() {
           setTimeout(() => {
             let oracleSearchArray = document.getElementsByClassName("result");
-
+            movieArray = document.getElementsByClassName("movie-info-item")
             let oracleArray = [];
 
             for (let i = 0; i < oracleSearchArray.length - 1; i++) {
@@ -236,10 +257,10 @@
                 startSimulation();
 
                 internalCount++;
-              }, 10 * count)
+              }, 1000 * count)
               count++;
             }
-          }, 500)
+          }, 1000)
           setTimeout(() => {
             simulation.stop()
           }, 10000)
@@ -266,6 +287,8 @@
         // }
 
         function actorInfo(d) {
+          simulation.stop()
+
           d3.select(this)
             .on("click", actorInfoReset)
             .transition()
@@ -278,10 +301,20 @@
 
           textElements = svg.selectAll(".my-text")
             .data(nodes)
+
+          divElements = svg.selectAll('.movie-info')
+            .data(movieArray)
+          
+          console.log(movieArray)
+          console.log(divElements)
           
           if (textElements) {
             let circleValue = d3.select(this).attr("value")
             let currentText = textElements.filter(function (f) { return f.value === circleValue })
+            let movieElements = divElements.filter(function (f) {console.log(f); console.log(circleValue)})
+
+            // console.log(textElements)
+            // console.log(divElements)
             currentText
               .transition()
               .duration(750)
@@ -289,16 +322,40 @@
               .style("font-size", "36px")
               .attr("x", 250)
               .attr("y", 250)
+              .attr("dy", -75)
+
+            setTimeout(() => {
+
+              divElements
+                .transition()
+                .duration(1000)
+                .attr("class", null)
+                .attr("class", "movie-info")
+              
+            }, 750)
+            // for (let i = 0; i < movieInfo[0].children.length; i++) {
+              // console.log(movieInfo[0].children[i].innerHTML)
+              // console.log(movieInfo[0].children)
+              // svg.selectAll('div')
+              //   .data(movieInfo[0].children)
+              //   .enter()
+              //   .append("div")
+              //   .text(movieInfo[0].children[i].innerHTML)
+              //   .style("fill", "#F6F6F6")
+              //   .style("font-size", "36px")
+              //   .attr("x", 250)
+              //   .attr("y", 250)
+              //   .attr("dy", 1 * i)
+
+            // }
           } 
         }
 
         function actorInfoReset() {
           if (currentClick.id === 'selected') {
-            console.log(currentClick)
-            console.log("hit")
             d3.select(currentClick)
-              .attr("r", 24)
-              .attr("fill", "#F40058")
+              .attr("r", 8)
+              .attr("fill", "#EFA500")
               .attr("id", "")
               .attr("cx", width / 1.5)
               .attr("cy", height / 2)
@@ -307,14 +364,25 @@
             textElements = svg.selectAll(".my-text")
               .data(nodes)
 
+            divElements = svg.selectAll('.movie-info')
+              .data(movieArray)
+            // console.log(divElements)
+
             if (textElements) {
               let circleValue = d3.select(currentClick).attr("value")
               let currentText = textElements.filter(function (f) { return f.value === circleValue })
+              let movieElements = divElements.filter(function (f) {console.log(f)})
+              // console.log(movieElements)
               currentText
+                .text(circleValue)
                 .style("fill", "#F6F6F6")
-                .style("font-size", "18px")
+                .style("font-size", "10px")
                 .attr("x", width / 1.5)
                 .attr("y", height / 2)
+                .attr("dy", 20)
+
+              divElements.attr("class", "movie-info hidden")
+
             } 
 
 
