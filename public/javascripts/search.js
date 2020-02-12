@@ -1,6 +1,7 @@
 const axios = require('axios');
 const SuccessOracle = require('./sucess_oracle');
 const FailedOracleContainer = require('./failed_oracle_container');
+const SuccessMovieSearch = require('./sucess_movie_search');
 
 class Search {
     constructor(container) {
@@ -24,6 +25,7 @@ class Search {
                 <button id="oracle-search" type="submit" class="search-oracle search-header-container-item">Submit</button>
             </div>
             <div class="oracle-response hidden"></div>
+            <div class="movie-info hidden"></div>
             <div class="failed-oracle-response-container"><div class="failed-oracle-header"></div><div class="failed-oracle-response"></div></div>
             <div class="d3-node-map"></div>
         `
@@ -42,6 +44,29 @@ class Search {
                     } else if (response.data.status === 'spellcheck') {
                         new FailedOracleContainer(this.container.querySelector('.failed-oracle-response-container'), response).render();
                     }
+                })
+                .then(() => {
+                    let baconArray = this.container.getElementsByClassName("result")
+                    for (let i = 1; i < baconArray.length; i += 2) {
+                        let movieSplit = baconArray[i].innerHTML.split(" ")
+                        let parsedMovieTitle = [];
+                        for (let i = 0; i < movieSplit.length; i++) {
+                            if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+                                parsedMovieTitle.push(movieSplit[i])
+                            }
+                        }
+                        let newMovieTitle = parsedMovieTitle.join(" ")
+
+                        // axios.get(`https://omdbapi.com/?apikey=525bf73b&t=${newMovieTitle}`)
+                        axios.get(`/movie_info?string=${newMovieTitle}`)
+                            .then((response) => {
+                                new SuccessMovieSearch(this.container.querySelector('.movie-info'), response.data).render();
+                            })
+                            .catch(error => {
+                                console.log(error);
+                            })
+                    }
+
                 })
                 .catch((error) => {
                     console.log(error);

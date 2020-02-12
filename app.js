@@ -21,12 +21,21 @@ if (process.env.NODE_ENV === 'production') {
 app.get('/search', (req, res) => {
   fetch(`https://oracleofbacon.org/cgi-bin/json?enc=utf-8&p=${KEYS.ORACLE_API}&a=Kevin+Bacon&b=${req.query.string}&u=1&rt=1&sy=1850&ey=2050&gm=0xef3ef7f&dir=0&co=`)
     .then(res => {
-      // console.log(res)
       return res.text()
     })
     .then(body => {
       // let results = JSON.parse(body)
       // console.log(body)
+      res.send(body)
+    })
+})
+
+app.get('/movie_info', (req, res) => {
+  fetch(`https://www.omdbapi.com/?apikey=525bf73b&t=${req.query.string}`)
+    .then(res => {
+      return res.text()
+    })
+    .then(body => {
       res.send(body)
     })
 })
