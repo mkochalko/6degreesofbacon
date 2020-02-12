@@ -311,7 +311,7 @@
           if (textElements) {
             let circleValue = d3.select(this).attr("value")
             let currentText = textElements.filter(function (f) { return f.value === circleValue })
-            let movieElements = divElements.filter(function (f) {console.log(f)})
+            let movieElements = divElements.filter(function (f) {console.log(f); console.log(circleValue)})
 
             // console.log(textElements)
             // console.log(divElements)
