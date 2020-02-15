@@ -9,13 +9,12 @@ class SuccessMovieSearch {
     render() {
         // console.log(this.response)
         this.container.innerHTML += `
-            <div class="movie-info-container">
-                <h3 id="1" value="${this.response.Title}" class="movie-info-item">Year: ${this.response.Year}</h3>
-                <h3 id="2" value="${this.response.Title}" class="movie-info-item">Rated: ${this.response.Rated}</h3>
-                <h3 id="3" value="${this.response.Title}" class="movie-info-item">Released: ${this.response.Released}</h3>
-                <h3 id="4" value="${this.response.Title}" class="movie-info-item">Runtime: ${this.response.Runtime}</h3>
-                <h3 id="5" value="${this.response.Title}" class="movie-info-item">IMDB Rating: ${this.response.imdbRating}</h3>
-                <h3 id="6" value="${this.response.Title}" class="movie-info-item">Box Office Earnings: ${this.response.BoxOffice}</h3>
+            <div class="movie-info-container hidden" id="${this.response.Title}">
+                <h3 id="1" data-value="${this.response.Title}" class="movie-info-item">Rated: ${this.response.Rated}</h3>
+                <h3 id="2" data-value="${this.response.Title}" class="movie-info-item">Released: ${this.response.Released}</h3>
+                <h3 id="3" data-value="${this.response.Title}" class="movie-info-item">Runtime: ${this.response.Runtime}</h3>
+                <h3 id="4" data-value="${this.response.Title}" class="movie-info-item">IMDB Rating: ${this.response.imdbRating}</h3>
+                <h3 id="5" data-value="${this.response.Title}" class="movie-info-item">Box Office Earnings: ${this.response.BoxOffice}</h3>
             </div>
         `
     }

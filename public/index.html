@@ -41,7 +41,7 @@
         let links = [];
         let movieArray = [];
         let
-            fill, simulation, node, link, cursor,
+            fill, simulation, node, link, cursor, oracleSearchArray,
             nodeElements, linkElements, textElements, imageElements, currentClick, divElements
 
         document.addEventListener("click", (e) => {
@@ -73,6 +73,34 @@
           submitButton = document.getElementById("oracle-search")
           submitButton.addEventListener("click", addPath)
         })
+
+        function addMovieInfo() {
+          // console.log(movieArray)
+          // console.log(oracleSearchArray)
+          // if (nodes.length % 2 === 0) {
+          //  tempArray = Array.from(movieArray).reverse()
+          // //  console.log(tempArray)
+          //  movieArray = tempArray.slice(0, 6)
+          //   // console.log(movieArray)
+          // }
+
+          // divElements = svg.selectAll(".movie-info hidden")
+          //   .data(movieArray)
+
+          // if (nodes.length % 2 === 0) {
+          //   divElements.enter()
+          //     .append("text")
+          //     .attr("class", "movie-info hidden")
+          //     .text(function (d) { return d.innerHTML })
+          //     .style("fill", "#F6F6F6")
+          //     .style("font-size", "36px")
+          //     .attr("x", 250)
+          //     .attr("y", 250)
+          //     .attr("dy", 20)
+          // }
+
+          // divElements.exit().remove();
+        }
 
         function startSimulation() {
 
@@ -146,22 +174,7 @@
           }
           textElements.exit().remove();
 
-          divElements = svg.selectAll("div")
-            .data(movieArray)
           
-          if (nodes.length % 2 === 0) {
-            divElements.enter()
-              .append("text")
-              .attr("class", "movie-info hidden")
-              .text(function (d) { return d.innerHTML})
-              .style("fill", "#F6F6F6")
-              .style("font-size", "36px")
-              .attr("x", 250)
-              .attr("y", 250)
-              .attr("dy", function (d) {return d.id * 50})
-          }
-
-          divElements.exit().remove();
 
           imageElements = svg.selectAll("image")
             .data(nodes)
@@ -179,11 +192,13 @@
 
           imageElements.exit().remove();
 
-
+          
+          addMovieInfo()
+          
           simulation.nodes(nodes)
           simulation.force("link").links(links)
           simulation.restart();
-
+          
           
 
           simulation.alphaTarget(0.3).restart();
@@ -240,8 +255,8 @@
 
         function addPath() {
           setTimeout(() => {
-            let oracleSearchArray = document.getElementsByClassName("result");
-            movieArray = document.getElementsByClassName("movie-info-item")
+            oracleSearchArray = document.getElementsByClassName("result");
+            // movieArray = document.getElementsByClassName("movie-info-item")
             let oracleArray = [];
 
             for (let i = 0; i < oracleSearchArray.length - 1; i++) {
@@ -254,6 +269,7 @@
               setTimeout(() => {
                 nextNode(oracleArray[internalCount], internalCount);
                 nextLink(internalCount);
+                
                 startSimulation();
 
                 internalCount++;
@@ -302,17 +318,17 @@
           textElements = svg.selectAll(".my-text")
             .data(nodes)
 
-          divElements = svg.selectAll('.movie-info')
-            .data(movieArray)
+          // divElements = svg.selectAll('.movie-info')
+          //   .data(movieArray)
           
-          console.log(movieArray)
-          console.log(divElements)
+          // console.log(movieArray)
+          // console.log(divElements)
           
           if (textElements) {
             let circleValue = d3.select(this).attr("value")
             let currentText = textElements.filter(function (f) { return f.value === circleValue })
-            let movieElements = divElements.filter(function (f) {console.log(f); console.log(circleValue)})
-
+            // let movieElements = divElements.filter(function (f) { console.log(f); return circleValue.includes(f.dataset.value)})
+            // console.log(movieElements)
             // console.log(textElements)
             // console.log(divElements)
             currentText
@@ -325,12 +341,21 @@
               .attr("dy", -75)
 
             setTimeout(() => {
-
-              divElements
-                .transition()
-                .duration(1000)
-                .attr("class", null)
-                .attr("class", "movie-info")
+              let movieSplit = circleValue.split(" ")
+              let parsedMovieTitle = [];
+              for (let i = 0; i < movieSplit.length; i++) {
+                if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+                  parsedMovieTitle.push(movieSplit[i])
+                }
+              }
+              let newMovieTitle = parsedMovieTitle.join(" ")
+              let movie = document.getElementById(newMovieTitle)
+              movie.classList.remove('hidden');
+              // movieElements
+              //   .transition()
+              //   .duration(1000)
+              //   .attr("class", null)
+              //   .attr("class", "movie-info")
               
             }, 750)
             // for (let i = 0; i < movieInfo[0].children.length; i++) {
@@ -371,7 +396,7 @@
             if (textElements) {
               let circleValue = d3.select(currentClick).attr("value")
               let currentText = textElements.filter(function (f) { return f.value === circleValue })
-              let movieElements = divElements.filter(function (f) {console.log(f)})
+              // let movieElements = divElements.filter(function (f) {console.log(f)})
               // console.log(movieElements)
               currentText
                 .text(circleValue)
@@ -381,12 +406,24 @@
                 .attr("y", height / 2)
                 .attr("dy", 20)
 
-              divElements.attr("class", "movie-info hidden")
+              // divElements.attr("class", "movie-info hidden")
+
+              let movieSplit = circleValue.split(" ")
+              let parsedMovieTitle = [];
+              for (let i = 0; i < movieSplit.length; i++) {
+                if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+                  parsedMovieTitle.push(movieSplit[i])
+                }
+              }
+              let newMovieTitle = parsedMovieTitle.join(" ")
+              let movie = document.getElementById(newMovieTitle)
+              movie.classList.add('hidden');
 
             } 
 
 
             startSimulation()
+
             setTimeout(() => {
               simulation.stop()
             }, 2000)
