@@ -14,7 +14,7 @@ class SuccessMovieSearch {
                 <h3 id="2" data-value="${this.response.Title}" class="movie-info-item">Released: ${this.response.Released}</h3>
                 <h3 id="3" data-value="${this.response.Title}" class="movie-info-item">Runtime: ${this.response.Runtime}</h3>
                 <h3 id="4" data-value="${this.response.Title}" class="movie-info-item">IMDB Rating: ${this.response.imdbRating}</h3>
-                <h3 id="5" data-value="${this.response.Title}" class="movie-info-item">Box Office Earnings: ${this.response.BoxOffice}</h3>
+                <h3 id="5" data-value="${this.response.Title}" class="movie-info-item">B.O. Earnings: ${this.response.BoxOffice}</h3>
             </div>
         `
     }
