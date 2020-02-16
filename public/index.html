@@ -76,34 +76,6 @@
           submitButton.addEventListener("click", addPath)
         })
 
-        function addMovieInfo() {
-          // console.log(movieArray)
-          // console.log(oracleSearchArray)
-          // if (nodes.length % 2 === 0) {
-          //  tempArray = Array.from(movieArray).reverse()
-          // //  console.log(tempArray)
-          //  movieArray = tempArray.slice(0, 6)
-          //   // console.log(movieArray)
-          // }
-
-          // divElements = svg.selectAll(".movie-info hidden")
-          //   .data(movieArray)
-
-          // if (nodes.length % 2 === 0) {
-          //   divElements.enter()
-          //     .append("text")
-          //     .attr("class", "movie-info hidden")
-          //     .text(function (d) { return d.innerHTML })
-          //     .style("fill", "#F6F6F6")
-          //     .style("font-size", "36px")
-          //     .attr("x", 250)
-          //     .attr("y", 250)
-          //     .attr("dy", 20)
-          // }
-
-          // divElements.exit().remove();
-        }
-
         function startSimulation() {
 
           linkElements = svg
@@ -122,7 +94,17 @@
 
           nodeElements = svg.selectAll(".node")
             .data(nodes);
-          if (nodes.length % 2 !== 0) {
+
+          if (nodes.length === 1) {
+            nodeElements.enter()
+              .append("circle")
+              .attr("class", "node")
+              .attr("value", function (d) { return d.value })
+              .attr("r", 36)
+              .attr("fill", "#F40058")
+              .attr("cx", width / 1.5)
+              .attr("cy", height / 2)
+          } else if (nodes.length % 2 !== 0) {
             nodeElements.enter()
               .append("circle")
               .attr("class", "node")
@@ -186,22 +168,17 @@
               .append("image")
               .attr("class", "image")
               .attr("xlink:href", "/javascripts/images/kevin_bacon.png")
-              .attr("x", (width / 1.5) - 37)
-              .attr("y", (height / 2) - 25)
-              .attr("height", 75)
-              .attr("width", 75);
+              .attr("x", (width / 1.5) - 55)
+              .attr("y", (height / 2) - 35)
+              .attr("height", 115)
+              .attr("width", 115);
           }
 
           imageElements.exit().remove();
-
-          
-          addMovieInfo()
           
           simulation.nodes(nodes)
           simulation.force("link").links(links)
           simulation.restart();
-          
-          
 
           simulation.alphaTarget(0.3).restart();
         }
@@ -239,7 +216,6 @@
           } else {
             newNode = { "number": nodeNumber, "value": title, "target": "null", "source": nodes[nodeNumber - 2] }
           }
-          // console.log(nodes)
           nodes.push(newNode);
         }
 
@@ -258,7 +234,6 @@
         function addPath() {
           setTimeout(() => {
             oracleSearchArray = document.getElementsByClassName("result");
-            // movieArray = document.getElementsByClassName("movie-info-item")
             let oracleArray = [];
 
             for (let i = 0; i < oracleSearchArray.length - 1; i++) {
@@ -284,28 +259,57 @@
           }, 10000)
         }
 
-        // function nodeHover(d) {
-        //   nodeElements = svg.selectAll('.node');
-        //   let currentNode = nodeElements.filter(function (f) { return f.number === d.number  })
-        //   currentNode
-        //     .transition()
-        //     .duration(1000)
-        //     .attr("r", function(d) {console.log(d); return 40})
-        //     .attr("fill", "#41B853")
-        // }
+        function resetNodeMap() {
+            let movieNodes = document.getElementsByClassName("node")
+            let textNodes = document.getElementsByClassName("my-text")
 
-        // function nodeReset(d) {
-        //   nodeElements = svg.selectAll('.node');
-        //   let currentNode = nodeElements.filter(function (f) { return f.number % 2 !== 0})
-        //   currentNode
-        //     .transition()
-        //     .duration(1000)
-        //     .attr("r", 24)
-        //     .attr("fill", "#F40058")
-        // }
+            for (let i = 0; i < movieNodes.length; i++) {
+              if (i % 2 !== 0) {
+                d3.select(movieNodes[i])
+                  .attr("r", 8)
+                  .attr("fill", "#EFA500")
+                  .attr("id", "")
+                  .attr("cx", width / 1.5)
+                  .attr("cy", height / 2)
+                  .on("click", actorInfo)
+              }
+            }
+
+            for (let j = 0; j < textNodes.length; j++) {
+              if (j % 2 !== 0) {
+                d3.select(textNodes[j])
+                  .style("fill", "#F6F6F6")
+                  .style("font-size", "10px")
+                  .attr("x", width / 1.5)
+                  .attr("y", height / 2)
+                  .attr("dy", 20)
+              }
+            }
+
+            let circleValue = d3.select(currentClick).attr("value")
+
+            let movieSplit = circleValue.split(" ")
+            let parsedMovieTitle = [];
+            for (let i = 0; i < movieSplit.length; i++) {
+              if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+                parsedMovieTitle.push(movieSplit[i])
+              }
+            }
+            let newMovieTitle = parsedMovieTitle.join(" ")
+            let movie = document.getElementById(newMovieTitle)
+            movie.classList.add('hidden');
+          }
+
+        function hideAllMovieInfo() {
+          let allMovieInfo = document.getElementsByClassName("movie-info-container")
+          for (let i = 0; i < allMovieInfo.length; i++) {
+            allMovieInfo[i].classList.add('hidden')
+          }
+        }
 
         function actorInfo(d) {
           simulation.stop()
+          hideAllMovieInfo()
 
           d3.select(this)
             .on("click", actorInfoReset)
@@ -320,19 +324,11 @@
           textElements = svg.selectAll(".my-text")
             .data(nodes)
 
-          // divElements = svg.selectAll('.movie-info')
-          //   .data(movieArray)
-          
-          // console.log(movieArray)
-          // console.log(divElements)
           
           if (textElements) {
             let circleValue = d3.select(this).attr("value")
             let currentText = textElements.filter(function (f) { return f.value === circleValue })
-            // let movieElements = divElements.filter(function (f) { console.log(f); return circleValue.includes(f.dataset.value)})
-            // console.log(movieElements)
-            // console.log(textElements)
-            // console.log(divElements)
+
             currentText
               .transition()
               .duration(750)
@@ -353,98 +349,18 @@
               let newMovieTitle = parsedMovieTitle.join(" ")
               let movie = document.getElementById(newMovieTitle)
               movie.classList.remove('hidden');
-              // movieElements
-              //   .transition()
-              //   .duration(1000)
-              //   .attr("class", null)
-              //   .attr("class", "movie-info")
-              
             }, 750)
-            // for (let i = 0; i < movieInfo[0].children.length; i++) {
-              // console.log(movieInfo[0].children[i].innerHTML)
-              // console.log(movieInfo[0].children)
-              // svg.selectAll('div')
-              //   .data(movieInfo[0].children)
-              //   .enter()
-              //   .append("div")
-              //   .text(movieInfo[0].children[i].innerHTML)
-              //   .style("fill", "#F6F6F6")
-              //   .style("font-size", "36px")
-              //   .attr("x", 250)
-              //   .attr("y", 250)
-              //   .attr("dy", 1 * i)
-
-            // }
           } 
         }
 
         function actorInfoReset() {
-          console.log(currentClick)
-          let movieNodes = document.getElementsByClassName("node")
-          console.log(movieNodes)
+          resetNodeMap()
 
-          for (let i = 0; i < movieNodes.length; i++) {
-            if (i % 2 !== 0) {
-              d3.select(movieNodes[i])
-                .attr("r", 8)
-                .attr("fill", "#EFA500")
-                .attr("id", "")
-                .attr("cx", width / 1.5)
-                .attr("cy", height / 2)
-                .on("click", actorInfo)
-            }
-          }
-          // if (currentClick.id === 'selected') {
-          //   d3.select(currentClick)
-          //     .attr("r", 8)
-          //     .attr("fill", "#EFA500")
-          //     .attr("id", "")
-          //     .attr("cx", width / 1.5)
-          //     .attr("cy", height / 2)
-          //     .on("click", actorInfo)
+          startSimulation()
 
-          //   textElements = svg.selectAll(".my-text")
-          //     .data(nodes)
-
-          //   divElements = svg.selectAll('.movie-info')
-          //     .data(movieArray)
-          //   // console.log(divElements)
-
-          //   if (textElements) {
-          //     let circleValue = d3.select(currentClick).attr("value")
-          //     let currentText = textElements.filter(function (f) { return f.value === circleValue })
-          //     // let movieElements = divElements.filter(function (f) {console.log(f)})
-          //     // console.log(movieElements)
-          //     currentText
-          //       .text(circleValue)
-          //       .style("fill", "#F6F6F6")
-          //       .style("font-size", "10px")
-          //       .attr("x", width / 1.5)
-          //       .attr("y", height / 2)
-          //       .attr("dy", 20)
-
-          //     // divElements.attr("class", "movie-info hidden")
-
-          //     let movieSplit = circleValue.split(" ")
-          //     let parsedMovieTitle = [];
-          //     for (let i = 0; i < movieSplit.length; i++) {
-          //       if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
-          //         parsedMovieTitle.push(movieSplit[i])
-          //       }
-          //     }
-          //     let newMovieTitle = parsedMovieTitle.join(" ")
-          //     let movie = document.getElementById(newMovieTitle)
-          //     movie.classList.add('hidden');
-
-          //   } 
-
-
-            startSimulation()
-
-            setTimeout(() => {
-              simulation.stop()
-            }, 2000)
-          // }
+          setTimeout(() => {
+            simulation.stop()
+          }, 2000)
         }
 
       </script>

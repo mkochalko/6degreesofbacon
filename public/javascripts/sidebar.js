@@ -43,11 +43,13 @@ class Sidebar {
                 <div class="sidebar-contents">
                     <div class="directions-container">
                         <h2>Directions</h2>
-                        <h6>- Search for any actor/actress and find their bacon number!</h6>
-                        <h6>- Once a search is complete, click on the movie node to find out information about the movie</h6>
-                        <h6>- Keep searching to build out a tree of connections</h6>
-                        <h6>- A Bacon number is the number of links one actor/actress has with other actors/actresses untill a connection with Kevin Bacon is found.</h6>
-                        <h6>- Higher numbers are harder to find!</h6>
+                        <ul>
+                            <li>Search for any actor/actress and find their bacon number!</li>
+                            <li>Once a search is complete, click on the movie node to find out information about the movie</li>
+                            <li>Keep searching to build out a tree of connections</li>
+                            <li>A Bacon number is the sum of connections one actor/actress has with other actors/actresses until a connection with Kevin Bacon is found.</li>
+                            <li>Higher numbers are harder to find!</li>
+                        </ul>
                     </div>
                     <span class="close-modal">X</span>
                 </div>
