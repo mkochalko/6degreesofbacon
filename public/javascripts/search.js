@@ -25,7 +25,7 @@ class Search {
                 <button id="oracle-search" type="submit" class="search-oracle search-header-container-item">Submit</button>
             </div>
             <div class="oracle-response hidden"></div>
-            <div class="movie-info hidden"></div>
+            <div class="movie-info"></div>
             <div class="failed-oracle-response-container"><div class="failed-oracle-header"></div><div class="failed-oracle-response"></div></div>
             <div class="d3-node-map"></div>
         `
