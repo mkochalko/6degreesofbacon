@@ -18,6 +18,8 @@
     <script type="text/javascript" src="./bundle.js"></script>
     <link href="https://fonts.googleapis.com/css?family=Montserrat&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Bowlby+One+SC&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Arvo&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="reset.css">
     <link rel="stylesheet" href="index.css">
   </head>
@@ -74,6 +76,11 @@
           startSimulation();
           submitButton = document.getElementById("oracle-search")
           submitButton.addEventListener("click", addPath)
+          document.addEventListener("keydown", (e) => {
+            if (e.key == 'Enter') {
+              addPath()
+            }
+          })
         })
 
         function startSimulation() {
@@ -118,7 +125,7 @@
               .append("circle")
               .attr("class", "node")
               .attr("value", function (d) { return d.value })
-              .attr("r", 8)
+              .attr("r", 10)
               .attr("fill", "#EFA500")
               .attr("cx", width / 1.5)
               .attr("cy", height / 2)
@@ -266,7 +273,7 @@
             for (let i = 0; i < movieNodes.length; i++) {
               if (i % 2 !== 0) {
                 d3.select(movieNodes[i])
-                  .attr("r", 8)
+                  .attr("r", 10)
                   .attr("fill", "#EFA500")
                   .attr("id", "")
                   .attr("cx", width / 1.5)
@@ -275,35 +282,39 @@
               }
             }
 
-            for (let j = 0; j < textNodes.length; j++) {
-              if (j % 2 !== 0) {
-                d3.select(textNodes[j])
-                  .style("fill", "#F6F6F6")
-                  .style("font-size", "10px")
-                  .attr("x", width / 1.5)
-                  .attr("y", height / 2)
-                  .attr("dy", 20)
-              }
-            }
+            // for (let j = 0; j < textNodes.length; j++) {
+            //   if (j % 2 !== 0) {
+            //     d3.select(textNodes[j])
+            //       .style("fill", "#F6F6F6")
+            //       .style("font-size", "10px")
+            //       .attr("x", width / 1.5)
+            //       .attr("y", height / 2)
+            //       .attr("dy", 20)
+            //   }
+            // }
 
             let circleValue = d3.select(currentClick).attr("value")
 
             let movieSplit = circleValue.split(" ")
             let parsedMovieTitle = [];
             for (let i = 0; i < movieSplit.length; i++) {
-              if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+              if (i > 0 && movieSplit[i - 1].startsWith("(")) {
+
+              } else if (i < movieSplit.length - 2 && movieSplit[i + 1].endsWith(")")) {
+
+              } else if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
                 parsedMovieTitle.push(movieSplit[i])
               }
             }
             let newMovieTitle = parsedMovieTitle.join(" ")
             let movie = document.getElementById(newMovieTitle)
-            movie.classList.add('hidden');
+            movie.style.display = 'none';
           }
 
         function hideAllMovieInfo() {
           let allMovieInfo = document.getElementsByClassName("movie-info-container")
           for (let i = 0; i < allMovieInfo.length; i++) {
-            allMovieInfo[i].classList.add('hidden')
+            allMovieInfo[i].style.display = 'none';
           }
         }
 
@@ -321,36 +332,51 @@
               .attr("cy", 250)
               .attr("id", "selected")
 
-          textElements = svg.selectAll(".my-text")
-            .data(nodes)
+          // textElements = svg.selectAll(".my-text")
+          //   .data(nodes)
 
           
-          if (textElements) {
-            let circleValue = d3.select(this).attr("value")
-            let currentText = textElements.filter(function (f) { return f.value === circleValue })
-
-            currentText
-              .transition()
-              .duration(750)
-              .style("fill", "#F6F6F6")
-              .style("font-size", "36px")
-              .attr("x", 250)
-              .attr("y", 250)
-              .attr("dy", -75)
-
+          // if (textElements) {
+            //   let currentText = textElements.filter(function (f) { return f.value === circleValue })
+            
+            //   currentText
+            //     .transition()
+            //     .duration(750)
+            //     .style("fill", "#F6F6F6")
+            //     .style("font-size", "36px")
+            //     .attr("x", 250)
+            //     .attr("y", 250)
+            //     .attr("dy", -80)
+            //     .attr("dx", 50)
+            
             setTimeout(() => {
+              let circleValue = d3.select(this).attr("value")
               let movieSplit = circleValue.split(" ")
+
               let parsedMovieTitle = [];
               for (let i = 0; i < movieSplit.length; i++) {
-                if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+                if (i > 0 && movieSplit[i - 1].startsWith("(")) {
+
+                } else if (i < movieSplit.length - 2 && movieSplit[i + 1].endsWith(")")) {
+
+                } else if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
                   parsedMovieTitle.push(movieSplit[i])
                 }
               }
               let newMovieTitle = parsedMovieTitle.join(" ")
               let movie = document.getElementById(newMovieTitle)
-              movie.classList.remove('hidden');
+              let noMovieInfo = document.getElementsByClassName("no-movie-info-message")
+              if (movie) {
+                movie.style.display = 'block';
+              } else {
+                noMovieInfo.style.display = 'block'
+              }
+
+              movie.addEventListener("click", (e) => {
+                actorInfoReset()
+              })
             }, 750)
-          } 
+          // } 
         }
 
         function actorInfoReset() {
