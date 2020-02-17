@@ -14,7 +14,7 @@ A user is able to enter any actor/acresses name into the search input and hit su
 #### Movie Info
 Once a search is complete, the user has the ability to click on any of the movie nodes to find out more information about the selected movie. 
 
-![]() 
+![](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/MoviePopoutGif.gif) 
 
 ## Architecture and Technologies
 
