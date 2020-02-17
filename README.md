@@ -1,27 +1,20 @@
-# 6 Degrees of Bacon
+# 6 Degree's of Bacon
 
 ## Background
 
-It’s Kevin Bacon is a data visualization app based off of the features created at Oracle of Bacon. This is a fun way to search for actors/actresses and how they connect back to Kevin Bacon! My focus for this project will be on the visualization aspect of these searches and making an interactive project so users can gather information about each actor/movie when a search is made. Another fun game to play is to try and get the highest possible Bacon number. 
+6 Degree's of Bacon is a data visualization app based off of the features created at Oracle of Bacon. This is a fun way to search for actors/actresses and how they connect back to Kevin Bacon! My focus for this project will be on the visualization aspect of these searches and making an interactive project so users can gather information about each connecting movie when a search is made. Another fun game to play is to try and get the highest possible Bacon number. 
 
-## Functionality and MVP
+## Features
 
-* Search Functionality
-    * Enter a name into the search box and get the appropriate data back
-* Display Data
-    * Use D3 to get a node map to display 
-* Proper data visualization 
-    * Create animations for each search to show great transitions and skill with JavaScript
-* Implement movie data
-    * Use search response and make an API call for more information on each movie/actor
-* Incorporate clean user interaction with movie data
-    * Use API response to generate turning pages on each actor/movie shown for a users search. User JavaScript to create a page flipping action. 
+#### Search Functionality
+A user is able to enter any actor/acresses name into the search input and hit submit to start the search. The application proceeds to call the Oracle of Bacon API to search for connections and beings to build out the node tree using D3 forced graph layout. 
 
-## Wireframes
+![]()
 
-This is the general idea of what features are on my page
+#### Movie Info
+Once a search is complete, the user has the ability to click on any of the movie nodes to find out more information about the selected movie. 
 
-![Wireframe](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/6DegWireframe.png)
+![]() 
 
 ## Architecture and Technologies
 
@@ -29,24 +22,11 @@ This project will implement the following technologies:
 * `JavaScript` for clean user interaction and website transitions
 * Oracle of Bacon API for connection/link requests and information
 * `D3.js` for data visualization
-* IMDB API for any and all movie/actor information
+* OMDB API for all movie information
 
 
-## Implementation Timeline
+## Challanges
 
-#### Day 1: 
-Setup all project files to get webpack up and running. Create an entry file with the minimal headers and items for the site including the initial search
+One of the major challanges working with this project was implementing D3 force graph layout. This took quite a bit of time to research and incorprate into the code to get the application working as intended. However, even though this was a challenge it was great to be able to learn all about D3 and the many things one can do with a forced layout. 
 
-#### Day 2: 
-Learn the proper way to make the API call for the actor link information. Be able to return the correct response and shape it for the map properly
-
-#### Day 3: 
-Setup D3 Node map to display default map. Initially the node map will show a center node and multiple lines that connect off of the center node. Then display search result onto the node map in a smooth animation. 
-
-#### Day 4: 
-Get the correct IMDB response information
-Create successful API calls for all movie and actor information. Select only the information that will be shown on the node map
-
-#### Day 5: 
-Use vanilla JS to display interactive movie data from search results. The goal is to create a flipping page effect when a user clicks on a specific movie or actor. 
 
