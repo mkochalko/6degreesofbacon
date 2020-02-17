@@ -1,6 +1,7 @@
 body {
     background-color: #161B40;
     color: #e6f7ff;
+    font-family: 'Arvo', serif;
 }
 
 main {
@@ -156,9 +157,34 @@ input {
 
 .movie-info-container {
     position: absolute;
-    top: 420px;
-    left: 150px;
+    top: 305px;
+    left: 90px;
     z-index: 980;
+    font-family: 'Arvo', serif;
+    font-size: 18px;
+    /* display: flex; */
+    display: none;
+    cursor: pointer;
+}
+
+.movie-info-container img {
+    height: 200px;
+    width: 160px;
+}
+
+.movie-info-container h2 {
+    text-align: center;
+    font-size: 36px;
+    padding-bottom: 15px;
+}
+
+.movie-info-item {
+    padding: 5px;
+    padding-top: 10px;
+}
+
+.movie-info-with-poster {
+    display: flex;
 }
 
 .modal {
@@ -329,3 +355,8 @@ input {
   .footer-modal-close:hover {
     color: black;
   } */
+
+
+  .no-movie-info-message {
+      display: none;
+  }

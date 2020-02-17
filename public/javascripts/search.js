@@ -26,59 +26,77 @@ class Search {
             </div>
             <div class="oracle-response hidden"></div>
             <div class="movie-info"></div>
+            <div class="no-movie-info-message">
+                <p>We are not able to find any movie information for this film, please try again</p>
+            </div>  
             <div class="failed-oracle-response-container"><div class="failed-oracle-header"></div><div class="failed-oracle-response"></div></div>
             <div class="d3-node-map"></div>
         `
     }
 
+    searchFunction() {
+        this.container.querySelector('.oracle-response').innerHTML = ''
+        let search = this.container.querySelector('.search-input').value;
+        let configuredSearch = search.split(" ").join("+");
+        axios.get(`/search?string=${configuredSearch}`)
+            .then((response) => {
+                if (response.data.status === 'success') {
+                    new SuccessOracle(this.container.querySelector('.oracle-response'), response).render();
+                } else if (response.data.status === 'spellcheck') {
+                    new FailedOracleContainer(this.container.querySelector('.failed-oracle-response-container'), response).render();
+                }
+            })
+            .then(() => {
+                let baconArray = this.container.getElementsByClassName("result")
+                for (let i = 1; i < baconArray.length; i += 2) {
+                    let movieSplit = baconArray[i].innerHTML.split(" ")
+                    let parsedMovieTitle = [];
+                    for (let i = 0; i < movieSplit.length; i++) {
+                        if (i > 0 && movieSplit[i - 1].startsWith("(")) {
+
+                        } else if (i < movieSplit.length - 2 && movieSplit[i + 1].endsWith(")")) {
+
+                        } else if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+                            parsedMovieTitle.push(movieSplit[i])
+                        }
+                    }
+                    let newMovieTitle = parsedMovieTitle.join(" ")
+
+                    // axios.get(`https://omdbapi.com/?apikey=525bf73b&t=${newMovieTitle}`)
+                    axios.get(`/movie_info?string=${newMovieTitle}`)
+                        .then((response) => {
+                            new SuccessMovieSearch(this.container.querySelector('.movie-info'), response.data).render();
+                        })
+                        .catch(error => {
+                            console.log(error);
+                        })
+                }
+
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+        setTimeout(() => {
+            let baconArray = this.container.getElementsByClassName("result")
+            let baconNumber = (baconArray.length - 1) / 2;
+            let title = this.container.querySelector(".bacon-number")
+            title.innerHTML = ` ${baconNumber}`
+        }, 2000)
+    }
+    
+
     addEventListeners() {
         let button = this.container.querySelector('.search-oracle');
         button.addEventListener("click", () => {
-            this.container.querySelector('.oracle-response').innerHTML = ''
-            let search = this.container.querySelector('.search-input').value;
-            let configuredSearch = search.split(" ").join("+");
-            axios.get(`/search?string=${configuredSearch}`)
-                .then((response) => {
-                    if (response.data.status === 'success') {
-                        new SuccessOracle(this.container.querySelector('.oracle-response'), response).render();
-                    } else if (response.data.status === 'spellcheck') {
-                        new FailedOracleContainer(this.container.querySelector('.failed-oracle-response-container'), response).render();
-                    }
-                })
-                .then(() => {
-                    let baconArray = this.container.getElementsByClassName("result")
-                    for (let i = 1; i < baconArray.length; i += 2) {
-                        let movieSplit = baconArray[i].innerHTML.split(" ")
-                        let parsedMovieTitle = [];
-                        for (let i = 0; i < movieSplit.length; i++) {
-                            if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
-                                parsedMovieTitle.push(movieSplit[i])
-                            }
-                        }
-                        let newMovieTitle = parsedMovieTitle.join(" ")
+            this.searchFunction()
+        })
 
-                        // axios.get(`https://omdbapi.com/?apikey=525bf73b&t=${newMovieTitle}`)
-                        axios.get(`/movie_info?string=${newMovieTitle}`)
-                            .then((response) => {
-                                new SuccessMovieSearch(this.container.querySelector('.movie-info'), response.data).render();
-                            })
-                            .catch(error => {
-                                console.log(error);
-                            })
-                    }
-
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
-            setTimeout(() => {
-                let baconArray = this.container.getElementsByClassName("result")
-                let baconNumber = (baconArray.length - 1) / 2;
-                let title = this.container.querySelector(".bacon-number")
-                title.innerHTML = ` ${baconNumber}`
-            }, 2000)
+        document.addEventListener("keypress", (e) => {
+            if (e.key == 'Enter') {
+                this.searchFunction()
             }
-        )
+        })
+        
 
 
         
