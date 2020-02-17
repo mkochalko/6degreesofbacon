@@ -9,7 +9,7 @@
 #### Search Functionality
 A user is able to enter any actor/acresses name into the search input and hit submit to start the search. The application proceeds to call the Oracle of Bacon API to search for connections and beings to build out the node tree using D3 forced graph layout. 
 
-![]()
+![](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/BaconSearchGif.gif)
 
 #### Movie Info
 Once a search is complete, the user has the ability to click on any of the movie nodes to find out more information about the selected movie. 
