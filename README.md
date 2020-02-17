@@ -1,4 +1,4 @@
-# 6 Degree's of Bacon
+# [6 Degree's of Bacon](http://six-deg-of-bacon.herokuapp.com/)
 
 ## Background
 
