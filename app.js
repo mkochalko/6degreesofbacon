@@ -31,7 +31,7 @@ app.get('/search', (req, res) => {
 })
 
 app.get('/movie_info', (req, res) => {
-  fetch(`https://www.omdbapi.com/?apikey=525bf73b&t=${req.query.string}`)
+  fetch(`https://www.omdbapi.com/?apikey=${KEYS.OMDB_API}&t=${req.query.string}`)
     .then(res => {
       return res.text()
     })
