@@ -62,7 +62,6 @@ class Search {
                     }
                     let newMovieTitle = parsedMovieTitle.join(" ")
 
-                    // axios.get(`https://omdbapi.com/?apikey=525bf73b&t=${newMovieTitle}`)
                     axios.get(`/movie_info?string=${newMovieTitle}`)
                         .then((response) => {
                             new SuccessMovieSearch(this.container.querySelector('.movie-info'), response.data).render();

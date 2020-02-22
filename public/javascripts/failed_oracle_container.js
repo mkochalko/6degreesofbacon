@@ -6,6 +6,7 @@ class FailedOracleContainer {
     constructor(container, response) {
         this.container = container;
         this.response = response;
+        console.log(container)
     }
 
 

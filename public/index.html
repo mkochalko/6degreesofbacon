@@ -27,17 +27,33 @@
   <body>
     <main id='main'></main>
     <div class="d3-container">
-      <div class="node-graph">
-        <svg width="1500" height="600"></svg>
+      <div id="viz" class="node-graph">
+        <!-- <svg width="1500" height="600"></svg> -->
       </div>
       <section id='sidebar'></section>
     </div>
     <section id='footer'></section>
       <script>
-        let svg = d3.select("svg"),
-            width = +svg.attr("width"),
-            height = +svg.attr("height")
+        let width = window.screen.width;
+        let height = window.screen.height * 0.80;
 
+        let svg = d3.select("#viz").append("svg")
+          .attr("id", "playgraph")
+          //better to keep the viewBox dimensions with variables
+          .attr("viewBox", "0 0 " + width + " " + height)
+          .attr("preserveAspectRatio", "xMidYMid meet");
+        
+        const zoom_handler = d3.zoom()
+            .on("zoom", zoom_actions);
+
+        zoom_handler(svg)
+        // d3.select("svg"),
+        //     width = +svg.attr("width"),
+        //     height = +svg.attr("height")
+
+        function zoom_actions() {
+          g.attr("transform", d3.event.transform)
+        }
 
             ////NEW STUFF STARTS HERE
         let nodes = [
@@ -46,12 +62,15 @@
         let links = [];
         let movieArray = [];
         let
-            fill, simulation, node, link, cursor, oracleSearchArray,
+            fill, simulation, node, link, cursor, oracleSearchArray, g,
             nodeElements, linkElements, textElements, imageElements, currentClick, divElements
 
         document.addEventListener("click", (e) => {
           currentClick = e.target;
         })
+
+        g = svg.append("g")
+            .attr("class", "everything");
 
 
         function setSimulation() {
@@ -86,7 +105,7 @@
 
         function startSimulation() {
 
-          linkElements = svg
+          linkElements = g
             .selectAll('.link')
             .data(links);
 
@@ -100,7 +119,7 @@
             .style("opacity", "0.4");
 
 
-          nodeElements = svg.selectAll(".node")
+          nodeElements = g.selectAll(".node")
             .data(nodes);
 
           if (nodes.length === 1) {
@@ -141,7 +160,7 @@
 
           nodeElements.exit().remove();
 
-          textElements = svg.selectAll(".my-text")
+          textElements = g.selectAll(".my-text")
             .data(nodes)
 
           if (nodes.length % 2 !== 0) {
@@ -168,7 +187,7 @@
 
           
 
-          imageElements = svg.selectAll("image")
+          imageElements = g.selectAll("image")
             .data(nodes)
 
           if (nodes.length === 1) {
@@ -193,10 +212,10 @@
 
 
         function tickActions() {
-          let nodeElements = svg.selectAll('.node');
-          let rootElement = svg.selectAll('.root');
-          let linkElements = svg.selectAll('.link');
-          let textElements = svg.selectAll('.my-text');
+          let nodeElements = g.selectAll('.node');
+          let rootElement = g.selectAll('.root');
+          let linkElements = g.selectAll('.link');
+          let textElements = g.selectAll('.my-text');
 
 
           linkElements
@@ -325,15 +344,20 @@
 
           d3.select(this)
             .on("click", actorInfoReset)
-            .transition()
-              .duration(750)
-              .attr("r", 200)
-              .attr("fill", "#41B853")
-              .attr("cx", 250)
-              .attr("cy", 250)
-              .attr("id", "selected")
+            .attr("fill", "#161B40")
+            .attr("id", "selected")
 
-          // textElements = svg.selectAll(".my-text")
+          // d3.select(this)
+          //   .on("click", actorInfoReset)
+          //   .transition()
+          //     .duration(750)
+          //     .attr("r", 200)
+          //     .attr("fill", "#41B853")
+          //     .attr("cx", 250)
+          //     .attr("cy", 250)
+          //     .attr("id", "selected")
+
+          // textElements = g.selectAll(".my-text")
           //   .data(nodes)
 
           
