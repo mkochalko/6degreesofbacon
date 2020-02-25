@@ -4,6 +4,14 @@
 
 6 Degree's of Bacon is a data visualization app based off of the features created at Oracle of Bacon. This is a fun way to search for actors/actresses and how they connect back to Kevin Bacon! My focus for this project will be on the visualization aspect of these searches and making an interactive project so users can gather information about each connecting movie when a search is made. Another fun game to play is to try and get the highest possible Bacon number. 
 
+## Technologies
+
+This project implemented the following technologies:
+* `JavaScript` for clean user interaction and website transitions
+* Oracle of Bacon API for connection/link requests and information
+* `D3.js` with user of the force layout for data visualization
+* OMDB API for all movie information
+
 ## Features
 
 #### Search Functionality
@@ -15,14 +23,6 @@ A user is able to enter any actor/acresses name into the search input and hit su
 Once a search is complete, the user has the ability to click on any of the movie nodes to find out more information about the selected movie. 
 
 ![](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/MoviePopoutGif.gif) 
-
-## Architecture and Technologies
-
-This project will implement the following technologies:
-* `JavaScript` for clean user interaction and website transitions
-* Oracle of Bacon API for connection/link requests and information
-* `D3.js` for data visualization
-* OMDB API for all movie information
 
 
 ## Challanges
