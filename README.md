@@ -1,5 +1,7 @@
 # [6 Degree's of Bacon](http://six-deg-of-bacon.herokuapp.com/)
 
+![Home Screen](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/home_screen.png)
+
 ## Background
 
 6 Degree's of Bacon is a data visualization app based off of the features created at Oracle of Bacon. This is a fun way to search for actors/actresses and how they connect back to Kevin Bacon! My focus for this project will be on the visualization aspect of these searches and making an interactive project so users can gather information about each connecting movie when a search is made. Another fun game to play is to try and get the highest possible Bacon number. 
