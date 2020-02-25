@@ -19,6 +19,61 @@ A user is able to enter any actor/acresses name into the search input and hit su
 
 ![](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/BaconSearchGif.gif)
 
+Below is the code to add a new path from the center node. The `nextNode()` and `nextLink()` are separated since they are built with different information but the two functions act the same. First check if the count is 0, meaning that this is the first new node being added. If so, the new nodes source will always be the center node, otherwise the nodes source will be the previous node. `addPath()` is what is triggered upon searching a name. The initial `setTimeout()` allows the connection information from the Oracle API call to be written to the DOM before we start our new path. The iteration through the array of connection information takes place and adds nodes/links with an increasing `setTimeout()` interval which is what renders each of these nodes individually. `startSimulation()` will add these new nodes/links the the force layout, giving them set forces and position so they can interact properly with the rest of the nodes already rendered. The `setTimout()` at the bottom will just stop the simulation after 10 seconds. Since users have the ability to click on movie nodes to see more information, sometimes it can be difficult to click on a moving node. This will stop the simulation and keep the graph from moving, until the next action.
+
+```
+function nextNode(title, count) {
+    let nodeNumber = nodes.length + 1
+    let newNode;
+    if (count === 0) {
+      newNode = { "number": 2, "value": title, "target": "null", "source": 1}
+    } else {
+      newNode = { "number": nodeNumber, "value": title, "target": "null", "source": nodes[nodeNumber - 2] }
+    }
+    nodes.push(newNode);
+}
+
+function nextLink(count) {
+    let nextLink;
+    let lastNode = nodes.length
+    if (count === 0) {
+      nextLink = { "source": 0, "target": lastNode - 1, "distance": 5 }
+    } else {
+      nextLink = { "source": nodes[lastNode - 2], "target": nodes[lastNode - 1], "distance": 5 }
+    }
+    newLink = nextLink;
+    links.push(nextLink);
+}
+
+function addPath() {
+    setTimeout(() => {
+      oracleSearchArray = document.getElementsByClassName("result");
+      let oracleArray = [];
+
+      for (let i = 0; i < oracleSearchArray.length - 1; i++) {
+        oracleArray.unshift(oracleSearchArray[i].innerHTML)
+      }
+
+      let count = 0;
+      while (count < oracleArray.length) {
+        let internalCount = count
+        setTimeout(() => {
+          nextNode(oracleArray[internalCount], internalCount);
+          nextLink(internalCount);
+
+          startSimulation();
+
+          internalCount++;
+        }, 1000 * count)
+        count++;
+      }
+    }, 1000)
+    setTimeout(() => {
+      simulation.stop()
+    }, 10000)
+}
+```
+
 #### Movie Info
 Once a search is complete, the user has the ability to click on any of the movie nodes to find out more information about the selected movie. 
 
