@@ -9,7 +9,7 @@ class SuccessMovieSearch {
     render() {
         // console.log(this.response)
         this.container.innerHTML += `
-            <div class="movie-info-container hidden" id="${this.response.Title}">
+            <div class="movie-info-container" id="${this.response.Title}">
                 <h2>${this.response.Title}</h2>
                 <div class="movie-info-with-poster">
                     <img src=${this.response.Poster} />

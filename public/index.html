@@ -62,7 +62,7 @@
         let links = [];
         let movieArray = [];
         let
-            fill, simulation, node, link, cursor, oracleSearchArray, g,
+            fill, simulation, node, link, cursor, oracleSearchArray, g, locationX, locationY, prevLocationX, prevLocationY,
             nodeElements, linkElements, textElements, imageElements, currentClick, divElements
 
         document.addEventListener("click", (e) => {
@@ -143,12 +143,20 @@
           } else {
             nodeElements.enter()
               .append("circle")
-              .attr("class", "node")
+              .attr("class", "node movie-slider")
               .attr("value", function (d) { return d.value })
               .attr("r", 10)
               .attr("fill", "#EFA500")
               .attr("cx", width / 1.5)
               .attr("cy", height / 2)
+              .on("mousedown", function(d) {
+                locationX = d3.event.pageX;
+                locationY = d3.event.pageY;
+
+                let slider = document.querySelector('.movie-slider')
+                slider.style.top = locationY + 'px'
+                slider.style.left = locationX + 'px'
+              })
               .on("click", actorInfo)
               .on("mouseover", function(d) {
                 d3.select(this).style("cursor", "pointer")
@@ -298,20 +306,18 @@
                   .attr("id", "")
                   .attr("cx", width / 1.5)
                   .attr("cy", height / 2)
+                  .on("mousedown", function (d) {
+                    locationX = d3.event.pageX;
+                    locationY = d3.event.pageY;
+
+                    let slider = document.querySelector('.movie-slider')
+                    slider.style.transition = 'none'
+                    slider.style.top = locationY + 'px'
+                    slider.style.left = locationX + 'px'
+                  })
                   .on("click", actorInfo)
               }
             }
-
-            // for (let j = 0; j < textNodes.length; j++) {
-            //   if (j % 2 !== 0) {
-            //     d3.select(textNodes[j])
-            //       .style("fill", "#F6F6F6")
-            //       .style("font-size", "10px")
-            //       .attr("x", width / 1.5)
-            //       .attr("y", height / 2)
-            //       .attr("dy", 20)
-            //   }
-            // }
 
             let circleValue = d3.select(currentClick).attr("value")
 
@@ -338,73 +344,79 @@
           }
         }
 
+        function parseMovieTitle(movieTitle) {
+          let movieSplit = movieTitle.split(" ")
+
+          let parsedMovieTitle = [];
+          for (let i = 0; i < movieSplit.length; i++) {
+            if (i > 0 && movieSplit[i - 1].startsWith("(")) {
+
+            } else if (i < movieSplit.length - 2 && movieSplit[i + 1].endsWith(")")) {
+
+            } else if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
+              parsedMovieTitle.push(movieSplit[i])
+            }
+          }
+          let newMovieTitle = parsedMovieTitle.join(" ")
+          return newMovieTitle
+        }
+
         function actorInfo(d) {
           simulation.stop()
           hideAllMovieInfo()
+
+          let slider = document.querySelector('.movie-slider')
+          prevLocationX = locationX
+          prevLocationY = locationY
+
+          slider.style.transition =  'background-color 1s, width 1s, height 1s, top 1s, left 1s';
+          slider.style.backgroundColor = '#41B853';
+          slider.style.zIndex = 10;
+          slider.style.height = '400px';
+          slider.style.width = '400px';
+          slider.style.top = '330px';
+          slider.style.left = '120px';
 
           d3.select(this)
             .on("click", actorInfoReset)
             .attr("fill", "#161B40")
             .attr("id", "selected")
 
-          // d3.select(this)
-          //   .on("click", actorInfoReset)
-          //   .transition()
-          //     .duration(750)
-          //     .attr("r", 200)
-          //     .attr("fill", "#41B853")
-          //     .attr("cx", 250)
-          //     .attr("cy", 250)
-          //     .attr("id", "selected")
-
-          // textElements = g.selectAll(".my-text")
-          //   .data(nodes)
-
-          
-          // if (textElements) {
-            //   let currentText = textElements.filter(function (f) { return f.value === circleValue })
             
-            //   currentText
-            //     .transition()
-            //     .duration(750)
-            //     .style("fill", "#F6F6F6")
-            //     .style("font-size", "36px")
-            //     .attr("x", 250)
-            //     .attr("y", 250)
-            //     .attr("dy", -80)
-            //     .attr("dx", 50)
+            // let slider = document.querySelector('.movie-slider')
+            // slider.style.top = locationX
+            // slider.style.left = locationY
+            // console.log(slider)
+            // slider.classList.toggle('hidden-slider');
             
             setTimeout(() => {
               let circleValue = d3.select(this).attr("value")
-              let movieSplit = circleValue.split(" ")
-
-              let parsedMovieTitle = [];
-              for (let i = 0; i < movieSplit.length; i++) {
-                if (i > 0 && movieSplit[i - 1].startsWith("(")) {
-
-                } else if (i < movieSplit.length - 2 && movieSplit[i + 1].endsWith(")")) {
-
-                } else if (!(movieSplit[i].startsWith("(")) && !(movieSplit[i].endsWith(")"))) {
-                  parsedMovieTitle.push(movieSplit[i])
-                }
-              }
-              let newMovieTitle = parsedMovieTitle.join(" ")
+              
+              let newMovieTitle = parseMovieTitle(circleValue)
               let movie = document.getElementById(newMovieTitle)
               let noMovieInfo = document.getElementsByClassName("no-movie-info-message")
               if (movie) {
                 movie.style.display = 'block';
               } else {
-                noMovieInfo.style.display = 'block'
+                noMovieInfo[0].style.display = 'block'
               }
 
               movie.addEventListener("click", (e) => {
                 actorInfoReset()
               })
-            }, 750)
+            }, 900)
           // } 
         }
 
         function actorInfoReset() {
+          let slider = document.querySelector('.movie-slider')
+
+          slider.style.backgroundColor = '#161B40';
+          slider.style.zIndex = 0;
+          slider.style.height = '16px';
+          slider.style.width = '16px';
+          slider.style.top = prevLocationY + 'px';
+          slider.style.left = prevLocationX + 'px';
           resetNodeMap()
 
           startSimulation()

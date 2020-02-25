@@ -24,6 +24,7 @@ class Search {
                 <input class="search-input search-header-container-item" list="actors" type="text">
                 <button id="oracle-search" type="submit" class="search-oracle search-header-container-item">Submit</button>
             </div>
+            <div class="movie-slider"></div>
             <div class="oracle-response hidden"></div>
             <div class="movie-info"></div>
             <div class="no-movie-info-message">
