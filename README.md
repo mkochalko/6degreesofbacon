@@ -79,7 +79,7 @@ function addPath() {
 #### Movie Info
 Once a search is complete, the user has the ability to click on any of the movie nodes to find out more information about the selected movie. 
 
-![](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/MoviePopoutGif.gif) 
+![](https://github.com/mkochalko/6degreesofbacon/blob/master/public/javascripts/images/new_popout_gif.gif) 
 
 
 ## Challanges
