@@ -132,6 +132,6 @@ function nextLink() {
 function addPath() {
     nextNode();
     nextLink();
-    console.log(nodes)
-    console.log(links)
+    // console.log(nodes)
+    // console.log(links)
 }

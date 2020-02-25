@@ -29,6 +29,7 @@ class Search {
             <div class="movie-info"></div>
             <div class="no-movie-info-message">
                 <p>We are not able to find any movie information for this film, please try again</p>
+                <p>Please try again!</p>
             </div>  
             <div class="failed-oracle-response-container"><div class="failed-oracle-header"></div><div class="failed-oracle-response"></div></div>
             <div class="d3-node-map"></div>

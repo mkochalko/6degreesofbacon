@@ -334,7 +334,9 @@
             }
             let newMovieTitle = parsedMovieTitle.join(" ")
             let movie = document.getElementById(newMovieTitle)
-            movie.style.display = 'none';
+            if (movie) {
+              movie.style.display = 'none';
+            }
           }
 
         function hideAllMovieInfo() {
@@ -383,27 +385,30 @@
             .attr("id", "selected")
 
             
-            // let slider = document.querySelector('.movie-slider')
-            // slider.style.top = locationX
-            // slider.style.left = locationY
-            // console.log(slider)
-            // slider.classList.toggle('hidden-slider');
-            
             setTimeout(() => {
               let circleValue = d3.select(this).attr("value")
               
               let newMovieTitle = parseMovieTitle(circleValue)
               let movie = document.getElementById(newMovieTitle)
-              let noMovieInfo = document.getElementsByClassName("no-movie-info-message")
+              let noMovieInfo = document.querySelector(".no-movie-info-message")
+
               if (movie) {
                 movie.style.display = 'block';
+                movie.addEventListener("click", (e) => {
+                  actorInfoReset()
+                })
               } else {
-                noMovieInfo[0].style.display = 'block'
+                noMovieInfo.style.display = 'block'
+                noMovieInfo.addEventListener("click", (e) => {
+                  e.currentTarget.style.display = 'none'
+
+                  actorInfoReset()
+                })
               }
 
-              movie.addEventListener("click", (e) => {
-                actorInfoReset()
-              })
+              
+              
+              
             }, 900)
           // } 
         }

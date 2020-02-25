@@ -175,6 +175,28 @@ input {
     height: 350px;
 }
 
+.no-movie-info-message {
+    position: absolute;
+    text-align: center;
+    top: 305px;
+    left: 90px;
+    z-index: 980;
+    font-family: 'Bowlby One SC', cursive;
+    font-size: 30px;
+    /* display: flex; */
+    display: none;
+    cursor: pointer;
+    background-color: #41B853;
+    border-radius: 50%;
+    padding: 50px;
+    width: 350px;
+    height: 350px;
+}
+
+.no-movie-info-message p {
+    padding: 20px;
+}
+
 .movie-info-container img {
     height: 200px;
     width: 160px;
