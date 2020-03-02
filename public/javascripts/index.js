@@ -3,6 +3,14 @@ const Search = require('./search');
 const Footer = require('./footer');
 const Sidebar = require('./sidebar');
 
+axios.get(`/test`)
+    .then((response) => {
+        return response; 
+    })
+    .catch(function (error) {
+        return error;
+    });
+
 document.addEventListener('DOMContentLoaded', () => {
 
     let main = document.getElementById("main")

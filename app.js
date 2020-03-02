@@ -18,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 }
 
 app.get('/test', (req, res) => {
-  
+  res.send('test')
 })
 
 
