@@ -17,6 +17,10 @@ if (process.env.NODE_ENV === 'production') {
   })
 }
 
+app.get('/test', (req, res) => {
+  
+})
+
 
 app.get('/search', (req, res) => {
   fetch(`https://oracleofbacon.org/cgi-bin/json?enc=utf-8&p=${KEYS.ORACLE_API}&a=Kevin+Bacon&b=${req.query.string}&u=1&rt=1&sy=1850&ey=2050&gm=0xef3ef7f&dir=0&co=`)
