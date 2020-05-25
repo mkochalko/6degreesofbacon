@@ -55,7 +55,6 @@
           g.attr("transform", d3.event.transform)
         }
 
-            ////NEW STUFF STARTS HERE
         let nodes = [
             { "number": 1, "value": "Kevin Bacon", "target": "null", "source": "null", "photo": "/javascripts/images/kevin_bacon.png" }
           ]
@@ -72,7 +71,23 @@
         g = svg.append("g")
             .attr("class", "everything");
 
+        let button;
+          document.addEventListener("DOMContentLoaded", () => {
+            setSimulation();
+            startSimulation();
+            submitButton = document.getElementById("oracle-search")
+            submitButton.addEventListener("click", addPath)
+            document.addEventListener("keydown", (e) => {
+              if (e.key == 'Enter') {
+                addPath()
+              }
+            })
+          })
 
+
+
+
+        // SETUP SIMULATION PARAMETERS
         function setSimulation() {
           simulation = d3.forceSimulation()
             .nodes(nodes)
@@ -83,25 +98,11 @@
             .force('charge',d3.forceManyBody()
               .strength(function(d) { return d.number === 1 ? -500 : -200})
             )
-            // .force("x", d3.forceX(width / 2))
-            // .force("y", d3.forceY(height / 2))
             .force('center', d3.forceCenter(width / 1.5, height / 2))
             .force('collision', d3.forceCollide(40))
             .on('tick', tickActions);
         }
 
-        let button;
-        document.addEventListener("DOMContentLoaded", () => {
-          setSimulation();
-          startSimulation();
-          submitButton = document.getElementById("oracle-search")
-          submitButton.addEventListener("click", addPath)
-          document.addEventListener("keydown", (e) => {
-            if (e.key == 'Enter') {
-              addPath()
-            }
-          })
-        })
 
         function startSimulation() {
 
@@ -121,6 +122,8 @@
 
           nodeElements = g.selectAll(".node")
             .data(nodes);
+
+          
 
           if (nodes.length === 1) {
             nodeElements.enter()
@@ -171,6 +174,8 @@
           textElements = g.selectAll(".my-text")
             .data(nodes)
 
+          
+
           if (nodes.length % 2 !== 0) {
             textElements.enter()
               .append("text")
@@ -191,12 +196,13 @@
               .attr("y", height / 2)
               .attr("dy", 20)
           }
-          textElements.exit().remove();
 
-          
+          textElements.exit().remove();
 
           imageElements = g.selectAll("image")
             .data(nodes)
+
+          
 
           if (nodes.length === 1) {
             imageElements.enter()
@@ -213,10 +219,14 @@
           
           simulation.nodes(nodes)
           simulation.force("link").links(links)
-          simulation.restart();
+          // simulation.restart();
 
           simulation.alphaTarget(0.3).restart();
         }
+
+//////////////////////////////////////////////////////////////
+
+
 
 
         function tickActions() {
@@ -242,6 +252,7 @@
             .attr("x", function (d) { return d.x; })
             .attr("y", function (d) { return d.y; })
         }
+        ///////////////////////////////////////////////
 
         function nextNode(title, count) {
           let nodeNumber = nodes.length + 1
